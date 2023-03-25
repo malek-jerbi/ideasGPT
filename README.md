@@ -14,8 +14,11 @@ Ensure that you have the following installed on your local development machine:
 ### Installation
 
 1. Clone the repository:
-   git clone https://github.com/oguzgezginci/ideasGPT.git
+
+```
+git clone https://github.com/oguzgezginci/ideasGPT.git
    cd ideasGPT
+```
 
 2. Install the dependencies in both backend and frontend directories:
    npm install
