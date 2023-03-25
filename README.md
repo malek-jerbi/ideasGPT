@@ -1,0 +1,58 @@
+# IdeasGPTrue
+
+IdeasGPTrue is a MERN (MongoDB, Express, React, and Node.js) swiping app that allows users to view, like, and manage ideas.
+
+## Getting Started
+
+These instructions will help you set up the project on your local machine for development and testing purposes.
+
+### Prerequisites
+
+Ensure that you have the following installed on your local development machine:
+
+- Node.js (version 14.x.x or higher)
+- NPM (version 6.x.x or higher)
+
+### Installation
+
+1. Clone the repository:
+   git clone https://github.com/oguzgezginci/ideasGPT.git
+   cd ideasGPT
+
+2. Install the dependencies in both backend and frontend directories:
+   npm install
+   cd frontend
+   npm install
+   cd ..
+
+3. Create a `.env` file in the root directory, following the example provided in the question.
+
+4. Start the development server:
+
+The server should now be running at `http://localhost:5000`, and the frontend should be accessible at `http://localhost:3000`.
+
+## Scripts
+
+- `npm run server`: Start the backend server in development mode with nodemon.
+- `npm run client`: Start the frontend React development server.
+- `npm run dev`: Start both backend and frontend development servers concurrently.
+
+## Backend Structure
+
+- `config`: Contains the database connection configuration.
+- `models`: Contains the Mongoose schema and models for ideas and users.
+- `routes`: Contains the API routes for ideas.
+
+## Frontend Structure
+
+- `components`: Contains reusable components like Header and Footer.
+- `screens`: Contains the main screens of the application, such as HomeScreen, LoginScreen, MostLiked, and MyAccount.
+
+## Built With
+
+- MongoDB
+- Express
+- React
+- Node.js
+- Mongoose
+- React-Bootstrap
