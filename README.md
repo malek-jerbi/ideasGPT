@@ -54,3 +54,9 @@ The server should now be running at `http://localhost:5000`, and the frontend sh
 - Node.js
 - Mongoose
 - React-Bootstrap
+
+## Database Configuration
+
+To set up the database, make sure you have `MONGO_URI=` in your `.env` file. The connection string for the MongoDB Atlas cluster will be required to connect to the database.
+
+To access the database outside of the code, you can use MongoDB Atlas Compass. The connection string URI for Atlas Compass will be provided in our Discord server.
