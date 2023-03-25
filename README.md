@@ -16,15 +16,18 @@ Ensure that you have the following installed on your local development machine:
 1. Clone the repository:
 
 ```
-git clone https://github.com/oguzgezginci/ideasGPT.git
-   cd ideasGPT
+    git clone https://github.com/oguzgezginci/ideasGPT.git
+    cd ideasGPT
 ```
 
 2. Install the dependencies in both backend and frontend directories:
+
+```
    npm install
    cd frontend
    npm install
    cd ..
+```
 
 3. Create a `.env` file in the root directory, following the example provided in the question.
 
