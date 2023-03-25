@@ -1,7 +1,5 @@
 # IdeasGPTrue
 
-IdeasGPTrue is a MERN (MongoDB, Express, React, and Node.js) swiping app that allows users to view, like, and manage ideas.
-
 ## Getting Started
 
 These instructions will help you set up the project on your local machine for development and testing purposes.
