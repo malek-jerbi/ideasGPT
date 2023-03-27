@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema(
     },
     likedIdeas: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "likedIdeas",
       },
     ],
