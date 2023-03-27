@@ -17,6 +17,12 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    likedIdeas: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "likedIdeas",
+      },
+    ],
   },
   { timestamps: true }
 )
