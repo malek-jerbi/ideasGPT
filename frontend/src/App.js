@@ -4,9 +4,13 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import MostLiked from './screens/MostLiked'
+import {useAuth0 } from '@auth0/auth0-react'
 
 
 const App = () => {
+
+
+  const {loginWithPopup, loginWithRedirect, logout, user, isAuthenticated} = useAuth0()
   return (
     <BrowserRouter>
       <Header />
@@ -18,6 +22,20 @@ const App = () => {
            
           </Routes>
         </Container>
+
+        <div>
+
+          <ul>
+            <li> <button onClick={loginWithPopup}>log in with pop up</button></li>
+          </ul>
+            <ul>
+            <li> <button onClick={loginWithRedirect}>log in with redirect</button></li>
+          </ul>
+          <ul>
+            <li> <button onClick={logout}>logout</button></li>
+          </ul>
+         
+        </div>
       </main>
       <Footer />
     </BrowserRouter>
