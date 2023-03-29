@@ -9,11 +9,20 @@ export const getIdeas = async (req, res) => {
   }
 }
 
-export const getIdeaById = async (req, res) => {
+export const getRandomIdea = async (req, res) => {
   try {
-    const idea = await Idea.findById(req.params.id)
+    const count = await Idea.countDocuments()
+
+    if (count === 0) {
+      res.status(404).json({ message: 'No ideas found' })
+      return
+    }
+
+    const randomIndex = Math.floor(Math.random() * count)
+    const idea = await Idea.findOne().skip(randomIndex)
+
     if (idea) {
-      res.json(idea)
+      res.json({ text: idea.text, likes: idea.likes })
     } else {
       res.status(404).json({ message: 'Idea not found' })
     }

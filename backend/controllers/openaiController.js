@@ -20,16 +20,6 @@ async function generateIdea(req, res) {
     return
   }
 
-  const animal = req.body.animal || ''
-  if (animal.trim().length === 0) {
-    res.status(400).json({
-      error: {
-        message: 'Please enter a valid animal',
-      },
-    })
-    return
-  }
-
   try {
     const completion = await openai.createCompletion({
       model: 'text-davinci-003',
