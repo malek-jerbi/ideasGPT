@@ -11,15 +11,16 @@ export const createUser = async (req, res) => {
     const {email, name} = req.body;
 
 
-    const newUser = new User({ email: email, name: name});
-
-   /* const user = await User.findBy (email);
-   if (user) {
+    
+    const existingUser = await User.findOne({ email: email });
+   if (existingUser) {
       return res.status(403).json({
         success: false,
         error: "User is already saved",
       });
-    }else{ */
+    }else{ 
+
+      const newUser = new User({ email: email, name: name});
       await newUser.save();
       
       res.status(200).send({
@@ -31,7 +32,7 @@ export const createUser = async (req, res) => {
           ", has been saved.",
       });
 
-   // }
+    }
 
     } catch (err) {
     console.error(err);
