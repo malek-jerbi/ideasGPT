@@ -6,6 +6,7 @@ import cors from 'cors'
 import ideaRoutes from './routes/ideaRoutes.js'
 import userRouter from './routes/user.js'
 import {auth} from 'express-oauth2-jwt-bearer'
+import bodyParser from 'body-parser'
 
 
 dotenv.config()
@@ -13,15 +14,20 @@ dotenv.config()
 connectDB()
 
 const app = express()
+// ---MIDDLE WARE---
+// In case we send images they can be large so the size is being limited 
+// support parsing of application/json type post data
+app.use(bodyParser.json({limit: "30mb", extended: true}));
 
 
 const PORT = process.env.PORT || 5000
-app.use(cors())
+//app.use(cors())
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 
 
 const jwtCheck = auth({
-  audience: 'GPT',
-  issuerBaseURL: 'https://dev-muso0wvn6wqurdcf.us.auth0.com/',
+  audience: 'https://dev-glrfz0b04ozteyjy.us.auth0.com/api/v2/',
+  issuerBaseURL: 'https://dev-glrfz0b04ozteyjy.us.auth0.com/',
   tokenSigningAlg: 'RS256'
 });
 
@@ -36,6 +42,22 @@ app.get('/authorized', function (req, res) {
 
 app.use('/ideas', ideaRoutes)
 app.use('/users', userRouter)
+
+
+// prevents backend from crashing when error occurs
+app.use((req, res, next) => {
+  const error = new Error('Not found');
+  error.status = 404;
+  next(error);
+}
+);
+
+// prevents backend from crashing when error occurs
+app.use((error, req, res, next) => {
+ const status = error.status || 500;
+ const message = error.message || 'Internal server error';
+ res.status(status).send(message);
+});
 
 
 

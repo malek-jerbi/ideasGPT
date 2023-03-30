@@ -5,16 +5,33 @@ import User from '../models/userModel.js'
 export const createUser = async (req, res) => {
   try{
 
-    const {email, name} = req.body;
-    const newUser = new User({ email: email, });
+    console.log("DEBUG: Inside CreateUser()");
+    console.log(req.body)
 
+    const {email, name} = req.body;
+
+
+    const newUser = new User({ email: email, name: name});
+
+   /* const user = await User.findBy (email);
+   if (user) {
+      return res.status(403).json({
+        success: false,
+        error: "User is already saved",
+      });
+    }else{ */
       await newUser.save();
+      
       res.status(200).send({
         message:
           "New User: " +
           newUser.email +
+          "Name: " +
+          newUser.name +
           ", has been saved.",
       });
+
+   // }
 
     } catch (err) {
     console.error(err);

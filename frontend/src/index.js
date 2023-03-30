@@ -10,9 +10,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <Auth0Provider
-    domain='dev-muso0wvn6wqurdcf.us.auth0.com'
-    clientId='hTbK7cKqRGCZDiGJxHEJsvQJPnw8aQ0'
-    redirectUri={window.location.origin}
+    domain="dev-glrfz0b04ozteyjy.us.auth0.com"
+    clientId="cPSFIwXZqtqJyjpNHL0tFAVwaORvzkYB"
+    authorizationParams={{
+      redirect_uri: window.location.origin,
+      audience: `https://dev-glrfz0b04ozteyjy.us.auth0.com/api/v2/`,
+      scope: "openid profile email"
+    }}
     >
     <App />
     </Auth0Provider>
