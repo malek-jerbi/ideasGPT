@@ -1,6 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { React, useEffect } from 'react';
+import { React, useEffect, useContext } from 'react';
 import userApi from "../api/UserApi";
+import AuthContext from "./AuthContext";
+
 
 
 
@@ -10,6 +12,8 @@ import userApi from "../api/UserApi";
 function LoginButton() {
 
   const {loginWithPopup, isAuthenticated, user, getAccessTokenSilently} = useAuth0();
+  const { userID, setUserID } = useContext(AuthContext);
+
 
   useEffect(() => {
     createUsers();
@@ -32,8 +36,9 @@ function LoginButton() {
                 Authorization: `Bearer ${access_token}`,
               }
             });
-            console.log (apiCall.request)
-            console.log(apiCall);
+
+            
+            setUserID(apiCall.data.data._id);
             }
             
         } catch (error) {
@@ -54,5 +59,6 @@ function LoginButton() {
 
   )
 }
+
 
 export default LoginButton

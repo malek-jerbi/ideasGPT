@@ -6,7 +6,6 @@ const router = express.Router()
 
 // router.use(verifyJwt)
 router.get("/:id", getUserByID)
-
 router.post("/create", createUser);
 
 

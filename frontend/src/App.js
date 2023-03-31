@@ -1,5 +1,6 @@
 import { Container } from 'react-bootstrap'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { AuthContextProvider } from './components/AuthContext.js'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
@@ -18,12 +19,12 @@ const App = () => {
     console.log(user)
   }
   return (
+    <AuthContextProvider>
     <BrowserRouter>
       <Header />
       <main>
         <Container>
           <Routes>
-           
             <Route path='/' element={<HomeScreen />} exact />
              
             <Route
@@ -48,6 +49,7 @@ const App = () => {
       </main>
       <Footer />
     </BrowserRouter>
+    </AuthContextProvider>
   )
 }
 

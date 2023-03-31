@@ -14,22 +14,21 @@ export const createUser = async (req, res) => {
     
     const existingUser = await User.findOne({ email: email });
    if (existingUser) {
-      return res.status(403).json({
+      return res.status(200).json({
         success: false,
         error: "User is already saved",
+        data: existingUser,
       });
     }else{ 
 
       const newUser = new User({ email: email, name: name});
       await newUser.save();
+
       
-      res.status(200).send({
-        message:
-          "New User: " +
-          newUser.email +
-          "Name: " +
-          newUser.name +
-          ", has been saved.",
+      res.status(201).json({
+        success: true,
+        message: "User Has been saved ",
+        data: newUser,
       });
 
     }
