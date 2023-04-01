@@ -5,7 +5,9 @@ import connectDB from './config/db.js'
 import cors from 'cors'
 import ideaRoutes from './routes/ideaRoutes.js'
 import userRouter from './routes/user.js'
-import { auth } from 'express-oauth2-jwt-bearer'
+import pkg from 'express-oauth2-jwt-bearer'
+const { auth } = pkg
+
 import bodyParser from 'body-parser'
 
 import openaiRoutes from './routes/openaiRoutes.js'
@@ -21,8 +23,6 @@ app.use(express.json())
 // In case we send images they can be large so the size is being limited
 // support parsing of application/json type post data
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
-
-app.use('/api/openai', openaiRoutes)
 
 const PORT = process.env.PORT || 5000
 //app.use(cors())

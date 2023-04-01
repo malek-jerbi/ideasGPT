@@ -2,6 +2,7 @@ import Idea from '../models/ideaModel.js'
 
 export const getIdeas = async (req, res) => {
   try {
+    console.log('here')
     const ideas = await Idea.find({})
     res.json(ideas)
   } catch (error) {
