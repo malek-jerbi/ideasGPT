@@ -3,6 +3,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Container } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import LoginButton from './LoginButton'
+import LogoutButton from './LogoutButton'
 
 const Header = () => {
   return (
@@ -25,6 +27,8 @@ const Header = () => {
                 <Nav.Link>My Account </Nav.Link>
               </LinkContainer>
             </Nav>
+            <LoginButton></LoginButton>
+            <LogoutButton></LogoutButton>
           </Navbar.Collapse>
         </Container>
       </Navbar>

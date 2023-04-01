@@ -29,7 +29,7 @@ Ensure that you have the following installed on your local development machine:
    cd ..
 ```
 
-3. Create a `.env` file in the root directory, following the example provided in the question.
+3. Create a `.env` file in the root directory, use the variable in our discord server channel #env-variables.
 
 4. Start the development server:
 
