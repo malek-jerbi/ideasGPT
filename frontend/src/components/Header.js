@@ -23,8 +23,8 @@ const Header = () => {
               <LinkContainer to='/mostliked'>
                 <Nav.Link>Most Liked</Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/myaccount'>
-                <Nav.Link>My Account </Nav.Link>
+              <LinkContainer to='/userProfile'>
+                <Nav.Link>My Profile</Nav.Link>
               </LinkContainer>
             </Nav>
             <LoginButton></LoginButton>

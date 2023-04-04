@@ -4,7 +4,7 @@ import colors from 'colors'
 import connectDB from './config/db.js'
 import cors from 'cors'
 import ideaRoutes from './routes/ideaRoutes.js'
-import userRouter from './routes/user.js'
+import userRouter from './routes/userRoutes.js'
 import {auth} from 'express-oauth2-jwt-bearer'
 import bodyParser from 'body-parser'
 

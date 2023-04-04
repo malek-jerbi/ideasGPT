@@ -9,13 +9,13 @@ function LogoutButton() {
   
   
   
-    const { logout, isAuthenticated } = useAuth0()
-    const {setUserID } = useContext(AuthContext);
+    const { logout, isAuthenticated } = useAuth0();
+    const {setdbUser } = useContext(AuthContext);
 
     const logoutUser = async () => {
 
         logout();
-        setUserID(null);
+        setdbUser(null);
 
     }
   

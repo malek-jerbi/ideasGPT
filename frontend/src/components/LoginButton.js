@@ -12,24 +12,24 @@ import AuthContext from "./AuthContext";
 function LoginButton() {
 
   const {loginWithPopup, isAuthenticated, user, getAccessTokenSilently} = useAuth0();
-  const { userID, setUserID } = useContext(AuthContext);
+  const { dbUser, setdbUser } = useContext(AuthContext);
 
 
   useEffect(() => {
-    createUsers();
 
-  })
+    createUsers();
+  });
 
   const createUsers = async () => {
 
-        if (isAuthenticated){
+        if (isAuthenticated && dbUser==null){
           const payload = { email: user.email, name: user.name };
           try {
 
-
             const access_token = await getAccessTokenSilently();
+
+            console.log(access_token);
     
-            
             if (access_token){
             const apiCall =  await userApi.createUser(payload, {
               headers: {
@@ -37,11 +37,15 @@ function LoginButton() {
               }
             });
 
-            
-            setUserID(apiCall.data.data._id);
+          
+            console.log(apiCall.data.data);
+            setdbUser(apiCall.data.data);
+
             }
             
         } catch (error) {
+
+          
           
         }
       }
@@ -52,7 +56,7 @@ function LoginButton() {
   return (
 
     !isAuthenticated && (
-        <button onClick={() =>{ loginWithPopup()}}>
+        <button onClick={() =>{loginWithPopup()}}>
             Sign In
         </button>
     )
