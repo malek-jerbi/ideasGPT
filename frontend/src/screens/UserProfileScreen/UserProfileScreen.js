@@ -30,7 +30,6 @@ const StyledBox = styled(Box,{})({
 
 });
 
-
 const UserProfileScreen = () => {
 
   const { dbUser, setdbUser } = useContext(AuthContext);
@@ -60,7 +59,7 @@ const UserProfileScreen = () => {
 
       
   } catch (error) {
-
+    
     
   }
 
@@ -69,44 +68,11 @@ const UserProfileScreen = () => {
 
   return (
 
-    // Add code to display "Hello" followed by user's name
-    // q: where can I find the user's name?
-    // a: it's in the dbUser object
-    // q: how do I access the dbUser object?
-    // a: use the useContext hook
-    // q: how do I use the useContext hook?
-    // a: import the AuthContext.js file and use the useContext hook
-    // q: where can I find the AuthContext.js file?
-    // a: it's in the components folder
-    // q: how do I import the AuthContext.js file?
-    // a: import AuthContext from "../../components/AuthContext.js";
-    // q: how do I use the useContext hook?
-    // a: const { dbUser, setdbUser } = useContext(AuthContext);
-    // q: how do I access the dbUser object?
-    // a: dbUser
-    // q: how do I access the user's name?
-    // a: dbUser.name
-    // q: how do I display the user's name?
-    // a: {dbUser.name}
-    // q: how do I display "Hello" followed by the user's name?
-    // a: Hello {dbUser.name}
-    // q: how do I display "Hello" followed by the user's name in a <h1> tag?
-    // a: <h1>Hello {dbUser.name}</h1>
-    // q: how do I display "Hello" followed by the user's name in a <h1> tag in the center of the screen?
-    // a: <h1 style={{textAlign: "center"}}>Hello {dbUser.name}</h1>
-    // q: how do I display "Hello" followed by the user's name in a <h1> tag in the center of the screen with a background color of #F5F5F5?
-    // a: <h1 style={{textAlign: "center", backgroundColor: "#F5F5F5"}}>Hello {dbUser.name}</h1>
-    // q: how do I display "Hello" followed by the user's name in a <h1> tag in the center of the screen with a background color of #F5F5F5 and a border radius of 50?
-    // a: <h1 style={{textAlign: "center", backgroundColor: "#F5F5F5", borderRadius: 50}}>Hello {dbUser.name}</h1>
-    // q: how do I display "Hello" followed by the user's name in a <h1> tag in the center of the screen with a background color of #F5F5F5 and a border radius of 50 and a box shadow?
-    // a: <h1 style={{textAlign: "center", backgroundColor: "#F5F5F5", borderRadius: 50, boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)"}}>Hello {dbUser.name}</h1>
-
     
-
-    <StyledBox>
+    <StyledBox id="userProfile">
 
       <UsersIdeaTable likedIdeas={dbUser?.likedIdeas}></UsersIdeaTable>
-
+      
     </StyledBox>
 
   )

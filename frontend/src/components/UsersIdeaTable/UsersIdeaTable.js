@@ -5,10 +5,6 @@ import React from "react";
 const UsersIdeaTable = ({likedIdeas}) => {
     console.log(likedIdeas);
 
-    
-
-
-
 
     return (
 
@@ -16,18 +12,18 @@ const UsersIdeaTable = ({likedIdeas}) => {
         <Table options={{maxBodyHeight:100}}>
             <TableHead>
                 <TableRow>
-                    <TableCell>Title </TableCell>
                     <TableCell>Description</TableCell>
                     <TableCell>Claim</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
             {likedIdeas.map((ideas) => (
-    
-                <TableCell></TableCell>
+                
+                <TableRow key={ideas._id}>
+                    <TableCell>{ideas.description}</TableCell>
+                </TableRow>
 
-                     )
-                    )}
+            ))}
             </TableBody>
             <TableBody>
 
