@@ -1,0 +1,41 @@
+.unselectable {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.cardWrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.cardStyle {
+  width: 18rem;
+}
+
+.likes {
+  font-size: 0.9rem;
+  color: #757575;
+  margin-top: 0.5rem;
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.icon.like {
+  color: #28a745;
+}
+
+.icon.dislike {
+  color: #dc3545;
+}
