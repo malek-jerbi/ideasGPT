@@ -13,10 +13,12 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
+    likedIdeas: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Ideas",
+      },
+    ],
   },
   { timestamps: true }
 )
