@@ -8,11 +8,12 @@ import User from '../models/userModel.js'
 
 const router = express.Router()
 
-// router.use(verifyJwt)
 router.get('/:id', getUserByID)
 router.post('/create', createUser)
 
 router.post('/swipe', swipe)
+
+// this is a route for development purposes only
 router.post('/clearMalekIdeas', async (req, res) => {
   // Replace this with the user's _id you want to clear the swipedIdeas array for
   const userId = '64286fbe940e238c4a53f8fd'

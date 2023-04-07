@@ -2,6 +2,12 @@ import mongoose from 'mongoose'
 
 const userSchema = mongoose.Schema(
   {
+    auth0Id: {
+      // Add this field to store the Auth0 'sub'
+      type: String,
+      required: true,
+      unique: true,
+    },
     name: {
       type: String,
       required: true,
@@ -19,7 +25,7 @@ const userSchema = mongoose.Schema(
         },
         action: {
           type: String,
-          enum: ['like', 'dislike'],
+          enum: ['right', 'left'],
         },
       },
     ],

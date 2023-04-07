@@ -1,4 +1,5 @@
 import User from '../models/userModel.js'
+import Idea from '../models/ideaModel.js'
 
 // save new user to database
 export const createUser = async (req, res) => {
@@ -6,26 +7,34 @@ export const createUser = async (req, res) => {
     console.log('DEBUG: Inside CreateUser()')
 
     const { email, name } = req.body
+    const auth0Id = req.auth.payload.sub
 
-    const existingUser = await User.findOne({ email: email })
+    let user = await User.findOne({ auth0Id })
 
-    if (existingUser) {
+    if (user) {
       console.log('DEBUG: Found Existing User')
       res.status(200).json({
         success: true,
         error: 'User is already saved so will be retruning it',
-        data: existingUser,
+        data: user,
       })
     } else {
-      console.log('DEBUG: Creating Existing User')
+      user = await User.findOne({ email })
 
-      const newUser = new User({ email: email, name: name })
-      await newUser.save()
+      if (user) {
+        console.log('DEBUG: Found User with Same Email')
+        user.auth0Id = auth0Id
+        await user.save()
+      } else {
+        console.log('DEBUG: Creating New User')
+        user = new User({ email: email, name: name, auth0Id: auth0Id })
+        await user.save()
+      }
 
       res.status(201).json({
         success: true,
         message: 'User Has been saved ',
-        data: newUser,
+        data: user,
       })
     }
   } catch (err) {
@@ -67,15 +76,15 @@ export const swipe = async (req, res) => {
   try {
     // Get the required information from the request body
     const { ideaId, action } = req.body
+    const userId = req.auth.payload.sub
 
-    // TODO: not forget to remove this and replace it with the user id from the request
-    const user = await User.findById('64286fbe940e238c4a53f8fd')
-    console.log(user.name)
+    // Find the user by their auth0Id
+    const user = await User.findOne({ auth0Id: userId })
 
-    // Find the user and update their seenIdeas array
+    // Update the user's swipedIdeas array
     await User.updateOne(
       {
-        _id: '64286fbe940e238c4a53f8fd' /* TODO: replace with user._id */,
+        auth0Id: userId, // Use auth0Id instead of _id
         'swipedIdeas.idea': { $ne: ideaId },
       },
       {
@@ -88,8 +97,13 @@ export const swipe = async (req, res) => {
       }
     )
 
-    // Implement any additional logic you may need based on the action (like/dislike)
-    // ...
+    // Implement the likes logic based on the action
+    if (action === 'right') {
+      await Idea.findByIdAndUpdate(ideaId, { $inc: { likes: 1 } })
+    } else if (action === 'left') {
+      await Idea.findByIdAndUpdate(ideaId, { $inc: { likes: -1 } })
+    }
+
     console.log('Swipe recorded successfully')
     // Send a success response
     res.status(200).json({ message: 'Swipe recorded successfully' })

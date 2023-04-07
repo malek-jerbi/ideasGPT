@@ -14,11 +14,11 @@ export const getIdeas = async (req, res) => {
 
 export const getRandomIdea = async (req, res) => {
   try {
-    // Replace this with the user's _id you want to filter the ideas for
-    const userId = '64286fbe940e238c4a53f8fd'
+    // Get the Auth0 ID from the request object
+    const auth0Id = req.auth.payload.sub
 
     // Retrieve the user's swiped ideas
-    const user = await User.findById(userId)
+    const user = await User.findOne({ auth0Id: auth0Id })
     const swipedIdeaIds = user.swipedIdeas.map((swipe) => swipe.idea)
 
     // Get the count of ideas not in the user's swipedIdeas array
@@ -26,13 +26,13 @@ export const getRandomIdea = async (req, res) => {
 
     if (count === 0) {
       try {
+        console.log('DEBUG: Generating new idea...')
         // Generate a new idea from OpenAI
         const newIdeaText = await generateIdeaFromOpenAI()
 
         // Save the new idea to the database
         const newIdea = new Idea({ text: newIdeaText, likes: 0 })
         await newIdea.save()
-        console.log(newIdea)
 
         // Return the new idea
         res.json({ id: newIdea._id, text: newIdea.text, likes: newIdea.likes })
