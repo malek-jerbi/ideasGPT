@@ -38,6 +38,7 @@ const jwtCheck = auth({
 app.use(jwtCheck)
 
 app.get('/authorized', function (req, res) {
+  console.log(req.auth)
   res.send('Secured Resource')
 })
 

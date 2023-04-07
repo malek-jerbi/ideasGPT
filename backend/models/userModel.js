@@ -1,5 +1,3 @@
-//This is just a template for now, up to @Mohit to personalize it as per his needs
-
 import mongoose from 'mongoose'
 
 const userSchema = mongoose.Schema(
@@ -13,10 +11,16 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    likedIdeas: [
+    swipedIdeas: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Idea',
+        idea: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Idea',
+        },
+        action: {
+          type: String,
+          enum: ['like', 'dislike'],
+        },
       },
     ],
   },

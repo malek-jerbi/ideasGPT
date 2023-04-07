@@ -28,19 +28,16 @@ async function generateIdea(req, res) {
       max_tokens: 350,
       suffix: '7',
     })
-    res.status(200).json({ result: completion.data.choices[0].text })
+
+    return completion.data.choices[0].text
   } catch (error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {
       console.error(error.response.status, error.response.data)
-      res.status(error.response.status).json(error.response.data)
+      throw new Error(error.response.data.message)
     } else {
       console.error(`Error with OpenAI API request: ${error.message}`)
-      res.status(500).json({
-        error: {
-          message: 'An error occurred during your request.',
-        },
-      })
+      throw new Error('An error occurred during your request.')
     }
   }
 }

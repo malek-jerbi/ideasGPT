@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from 'react'
 import TinderCard from 'react-tinder-card'
 import { Card } from 'react-bootstrap'
 import styles from './HomeScreen.module.css'
+import { useAuth0 } from '@auth0/auth0-react'
+import axios from 'axios'
 
 export default function HomeScreen() {
   const [idea, setIdea] = useState(null)
   const [cardKey, setCardKey] = useState(0)
   const [loading, setLoading] = useState(false)
   const isSwiping = useRef(false)
+  const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
     fetchIdea()
@@ -19,12 +22,14 @@ export default function HomeScreen() {
     }
     setLoading(true)
     try {
-      const response = await fetch('/api/ideas/random', {
-        method: 'GET',
+      const token = await getAccessTokenSilently()
+      const response = await axios.get('/ideas/random', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
 
-      const data = await response.json()
-
+      const data = await response.data
       if (response.status !== 200) {
         throw (
           data.error ||
@@ -40,14 +45,43 @@ export default function HomeScreen() {
     }
   }
 
-  const onSwipe = (direction) => {
+  const onSwipe = async (direction) => {
     if (isSwiping.current) {
       return
     }
     isSwiping.current = true
     console.log('You swiped: ' + direction)
-    fetchIdea()
-    setCardKey((prevKey) => prevKey + 1)
+
+    try {
+      // Get the access token
+      const token = await getAccessTokenSilently()
+
+      // Send a POST request to the backend with the idea ID and the action (like/dislike)
+      const response = await axios.post(
+        '/users/swipe',
+        {
+          ideaId: idea.id,
+          action: direction,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+
+      // Check the response status
+      if (response.status !== 200) {
+        throw new Error(`Request failed with status ${response.status}`)
+      }
+
+      // Fetch a new idea
+      fetchIdea()
+      setCardKey((prevKey) => prevKey + 1)
+    } catch (error) {
+      console.error(error)
+      alert(error.message)
+    }
   }
 
   const onCardLeftScreen = () => {
