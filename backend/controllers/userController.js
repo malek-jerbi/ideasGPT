@@ -4,18 +4,21 @@ import User from '../models/userModel.js'
 export const createUser = async (req, res) => {
   try {
     console.log('DEBUG: Inside CreateUser()')
-    console.log(req.body)
 
     const { email, name } = req.body
 
     const existingUser = await User.findOne({ email: email })
+
     if (existingUser) {
-      return res.status(200).json({
-        success: false,
-        error: 'User is already saved',
+      console.log('DEBUG: Found Existing User')
+      res.status(200).json({
+        success: true,
+        error: 'User is already saved so will be retruning it',
         data: existingUser,
       })
     } else {
+      console.log('DEBUG: Creating Existing User')
+
       const newUser = new User({ email: email, name: name })
       await newUser.save()
 
@@ -32,10 +35,14 @@ export const createUser = async (req, res) => {
 }
 
 // gets user by ID
+
 export const getUserByID = async (req, res) => {
   try {
+    console.log('DEBUG: InsideGetUserByID')
+
     const userID = req.params.id
-    const user = await db.User.findById(userID)
+
+    const user = await User.findById(userID)
 
     // No user found
     if (!user) {
@@ -44,6 +51,12 @@ export const getUserByID = async (req, res) => {
         .json({ status: 'fail', message: 'No user found with that ID' })
     }
     res.status(200).json({ status: 'success', data: user })
+
+    res.status(200).json({
+      success: true,
+      message: 'User Returned',
+      data: user,
+    })
   } catch (err) {
     // Invalid id
     res.status(400).json({ status: 'fail', message: err })

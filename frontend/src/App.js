@@ -5,6 +5,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import MostLiked from './screens/MostLiked'
+import UserProfileScreen from './screens/UserProfileScreen/UserProfileScreen.js'
 import {useAuth0 } from '@auth0/auth0-react'
 import RestrictedRoutes from './components/CustomRouters/RestrictedRoutes'
 
@@ -16,7 +17,7 @@ const App = () => {
 
   if(isAuthenticated){
 
-    console.log(user)
+    console.log(user);
   }
   return (
     <AuthContextProvider>
@@ -32,6 +33,16 @@ const App = () => {
              element={
               <RestrictedRoutes>
                 <MostLiked></MostLiked>
+              </RestrictedRoutes>
+             }
+            >
+            </Route>
+
+            <Route
+             path="/userProfile"
+             element={
+              <RestrictedRoutes>
+                <UserProfileScreen></UserProfileScreen>
               </RestrictedRoutes>
              }
             >
