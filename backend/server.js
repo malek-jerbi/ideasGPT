@@ -7,6 +7,7 @@ import ideaRoutes from './routes/ideaRoutes.js'
 import userRouter from './routes/userRoutes.js'
 import pkg from 'express-oauth2-jwt-bearer'
 const { auth } = pkg
+import testAuthMiddleware from './middleware/testAuthMiddleware.js'
 
 import bodyParser from 'body-parser'
 
@@ -28,11 +29,14 @@ const PORT = process.env.PORT || 5000
 //app.use(cors())
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
 
-const jwtCheck = auth({
+const authMiddleware = auth({
   audience: 'https://dev-glrfz0b04ozteyjy.us.auth0.com/api/v2/',
   issuerBaseURL: 'https://dev-glrfz0b04ozteyjy.us.auth0.com/',
   tokenSigningAlg: 'RS256',
 })
+
+const jwtCheck =
+  process.env.NODE_ENV === 'test' ? testAuthMiddleware : authMiddleware
 
 // enforce on all endpoints
 app.use(jwtCheck)
@@ -59,9 +63,18 @@ app.use((error, req, res, next) => {
   res.status(status).send(message)
 })
 
-app.listen(
-  PORT,
-  console.log(
-    `server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
+let server
+if (process.env.NODE_ENV !== 'test') {
+  const PORT = process.env.PORT || 5000
+  server = app.listen(
+    PORT,
+    console.log(
+      `server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
+        .bold
+    )
   )
-)
+} else {
+  server = app
+}
+
+export default server
