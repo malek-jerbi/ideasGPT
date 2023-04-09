@@ -8,7 +8,7 @@ const ideaSchema = new mongoose.Schema({
   likes: {
     type: Number,
     required: true,
-  },
+  }
 })
 
 const Idea = mongoose.model('Idea', ideaSchema)

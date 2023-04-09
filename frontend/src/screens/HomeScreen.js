@@ -5,12 +5,14 @@ import styles from './HomeScreen.module.css'
 import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
 
+
 export default function HomeScreen() {
   const [idea, setIdea] = useState(null)
   const [cardKey, setCardKey] = useState(0)
   const [loading, setLoading] = useState(false)
   const isSwiping = useRef(false)
   const { getAccessTokenSilently } = useAuth0()
+
 
   useEffect(() => {
     fetchIdea()
@@ -89,6 +91,28 @@ export default function HomeScreen() {
     isSwiping.current = false
   }
 
+  const handleClaim = async (ideaId) => {
+    console.log("inside handleclaim")
+    console.log( " ideaId : "+ideaId)
+    // Get the access token
+    const token = await getAccessTokenSilently()
+
+    // Send a POST request to the backend
+    try {
+      await axios.post('/users/claim', {ideaId},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
   return (
     <div>
       <main>
@@ -113,7 +137,9 @@ export default function HomeScreen() {
             </TinderCard>
           </div>
         )}
+    <button onClick={() => {handleClaim(idea.id)}}>Claim</button>
       </main>
     </div>
+    
   )
 }

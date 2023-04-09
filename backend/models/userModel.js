@@ -17,6 +17,10 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    credits: {
+      type: Number,
+      required: true,
+    },
     swipedIdeas: [
       {
         idea: {

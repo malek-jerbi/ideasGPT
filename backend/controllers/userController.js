@@ -114,3 +114,58 @@ export const swipe = async (req, res) => {
       .json({ error: 'An error occurred while recording the swipe' })
   }
 }
+
+
+export const processClaim = async (req, res) => {
+
+try {
+  console.log('processing claim in controller...')
+  // Get the required information from the request body
+  const  ideaId  = req.body.ideaId
+  const userId = req.auth.payload.sub
+  const user = await User.findOne({ auth0Id: userId })
+  //const [balance, setBalance] = useState(user.credits || 0);
+  const balance = user["credits"];
+
+  console.log('idea id : ' + ideaId)
+  console.log('user id : ' + user.id)
+  // processing
+  
+  // delete idea from database
+  const deletedIdea = await Idea.findByIdAndDelete(ideaId)
+  
+  if (!deletedIdea) {
+    console.log('No idea found with id', ideaId);
+  } else {
+    console.log('Idea with id', ideaId, 'deleted successfully');
+  }
+  // TODO: add to claim idea array
+
+
+  // change user credit amount
+
+    // TODO: get idea.price
+
+  if (balance >= 2) {
+    console.log(`User has sufficient balance (${balance} credits)`);
+
+     const newBalance = balance - 2;
+    // setBalance(newBalance);
+
+    // TODO: Update user's balance in the database
+
+    // user.credits = newBalance;
+    // await user.save();
+    // res.send(user);
+
+  } else {
+    console.log(`User has insufficient balance (${balance} credits)`);
+    alert("Insufficient credits!");
+    return;
+  }
+
+  
+} catch (error) {
+  res.status(500).json({ message: 'Error processing claim' })
+}
+}

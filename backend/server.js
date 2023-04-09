@@ -5,6 +5,7 @@ import connectDB from './config/db.js'
 import cors from 'cors'
 import ideaRoutes from './routes/ideaRoutes.js'
 import userRouter from './routes/userRoutes.js'
+
 import pkg from 'express-oauth2-jwt-bearer'
 const { auth } = pkg
 
@@ -44,6 +45,7 @@ app.get('/authorized', function (req, res) {
 
 app.use('/ideas', ideaRoutes)
 app.use('/users', userRouter)
+
 
 // prevents backend from crashing when error occurs
 app.use((req, res, next) => {

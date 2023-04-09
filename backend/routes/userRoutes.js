@@ -3,8 +3,10 @@ import {
   createUser,
   getUserByID,
   swipe,
+  processClaim,
 } from '../controllers/userController.js'
 import User from '../models/userModel.js'
+
 
 const router = express.Router()
 
@@ -12,6 +14,8 @@ router.get('/:id', getUserByID)
 router.post('/create', createUser)
 
 router.post('/swipe', swipe)
+
+router.post('/claim', processClaim)
 
 // this is a route for development purposes only
 router.post('/clearMalekIdeas', async (req, res) => {
