@@ -18,14 +18,14 @@ const MostLiked = () => {
 
   return (
     <>
-      <h1>Most Liked Ideas</h1>
+      <h1 id="mostLikeTitle">Most Liked Ideas</h1>
       {ideas
         .sort((a, b) => b.likes - a.likes)
         .map((idea) => (
-          <Row key={idea._id}>
-            <Card>
+          <Row key={idea._id} class="mostLikeRow">
+            <Card class="mostLikeCard">
               <h4>{idea.text}</h4>
-              <p>likes: {idea.likes}</p>
+              <p>Likes: {idea.likes}</p>
             </Card>
           </Row>
         ))}

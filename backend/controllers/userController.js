@@ -53,7 +53,23 @@ export const createUser = async (req, res) => {
 export const getUserByID = async (req, res) => {
   try {
 
+<<<<<<< Updated upstream
     console.log("DEBUG: InsideGetUserByID");
+=======
+    const userID = req.params.id
+
+    const user = await User.findById(userID)
+
+    console.log(user.swipedIdeas)
+
+    // No user found
+    if (!user) {
+      return res
+        .status(404)
+        .json({ status: 'fail', message: 'No user found with that ID' })
+    }
+    res.status(200).json({ status: 'success', data: user })
+>>>>>>> Stashed changes
 
     const userID = req.params.id;
   

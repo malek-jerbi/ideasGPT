@@ -2,6 +2,7 @@ import express from 'express'
 import { createUser,getUserByID } from '../controllers/userController.js';
 
 
+
 const router = express.Router()
 
 // router.use(verifyJwt)
