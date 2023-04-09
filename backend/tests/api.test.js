@@ -1,6 +1,7 @@
 import request from 'supertest'
 import app from '../server'
 import Idea from '../models/ideaModel'
+import mongoose from 'mongoose'
 
 describe('POST /users/swipe', () => {
   let idea
@@ -18,6 +19,11 @@ describe('POST /users/swipe', () => {
   afterAll(async () => {
     // Clean up the created idea
     await Idea.deleteOne({ _id: idea._id })
+  })
+
+  afterAll(async () => {
+    // Close the MongoDB connection
+    await mongoose.connection.close()
   })
 
   test('Swipe right increases the likes count of an idea', async () => {
