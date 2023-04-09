@@ -122,48 +122,44 @@ try {
   console.log('processing claim in controller...')
   // Get the required information from the request body
   const  ideaId  = req.body.ideaId
+  const idea = await Idea.findById(ideaId)
   const userId = req.auth.payload.sub
   const user = await User.findOne({ auth0Id: userId })
   //const [balance, setBalance] = useState(user.credits || 0);
   const balance = user["credits"];
+  const price = idea["price"];
 
-  console.log('idea id : ' + ideaId)
-  console.log('user id : ' + user.id)
-  // processing
-  
+  console.log('idea id : ' + ideaId  + ' idea price: ' + price)
+  console.log('user id : ' + user.id + ' balance : ' + balance)
+
   // delete idea from database
-  const deletedIdea = await Idea.findByIdAndDelete(ideaId)
+  // const deletedIdea = await Idea.findByIdAndDelete(ideaId)
   
-  if (!deletedIdea) {
-    console.log('No idea found with id', ideaId);
-  } else {
-    console.log('Idea with id', ideaId, 'deleted successfully');
-  }
+  // if (!deletedIdea) {
+  //   console.log('No idea found with id', ideaId);
+  // } else {
+  //   console.log('Idea with id', ideaId, 'deleted successfully');
+  // }
+
   // TODO: add to claim idea array
 
 
-  // change user credit amount
-
-    // TODO: get idea.price
-
-  if (balance >= 2) {
+  if (balance >= price) {
     console.log(`User has sufficient balance (${balance} credits)`);
 
-     const newBalance = balance - 2;
-    // setBalance(newBalance);
+    const newBalance = balance - price;
 
-    // TODO: Update user's balance in the database
+    user.credits = newBalance;
+    await user.save();
+    res.send(user);
 
-    // user.credits = newBalance;
-    // await user.save();
-    // res.send(user);
+    console.log(`User current balance (${user.credits} credits)`);
 
   } else {
     console.log(`User has insufficient balance (${balance} credits)`);
     alert("Insufficient credits!");
     return;
   }
-
   
 } catch (error) {
   res.status(500).json({ message: 'Error processing claim' })

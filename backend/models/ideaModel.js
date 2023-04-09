@@ -8,6 +8,10 @@ const ideaSchema = new mongoose.Schema({
   likes: {
     type: Number,
     required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
   }
 })
 
