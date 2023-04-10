@@ -10,7 +10,7 @@ const getUserByAuth0Id = async (auth0Id) => {
 }
 
 const createNewUser = async (email, name, auth0Id) => {
-  const user = new User({ email, name, auth0Id });
+  const user = new User({ email, name, auth0Id ,credits:10});
   return await user.save();
 }
 

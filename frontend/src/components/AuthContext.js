@@ -1,18 +1,38 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import UserApi from "../api/UserApi";
+
 const AuthContext = createContext();
 
-// Used to keep track of if the current user is logged in
 function AuthContextProvider(props) {
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const [dbUser, setDbUser] = useState(undefined);
 
-  const [dbUser, setdbUser] = useState(undefined);
- 
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      const getUser = async () => {
+        try {
+          const token = await getAccessTokenSilently();
+          const userData = await UserApi.getUserByID(user.sub, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          setDbUser(userData.data);
+        } catch (error) {
+          console.log("Error fetching user:", error);
+        }
+      };
 
-  // Allows other components to update the loggedIn
+      getUser();
+    } else {
+      setDbUser(undefined);
+    }
+  }, [isAuthenticated, user, getAccessTokenSilently]);
+
   return (
     <AuthContext.Provider
       value={{
         dbUser,
-        setdbUser,
+        setDbUser,
       }}
     >
       {props.children}
@@ -20,5 +40,7 @@ function AuthContextProvider(props) {
   );
 }
 
+const useAuthContext = () => useContext(AuthContext);
+
 export default AuthContext;
-export { AuthContextProvider };
+export { AuthContextProvider, useAuthContext };

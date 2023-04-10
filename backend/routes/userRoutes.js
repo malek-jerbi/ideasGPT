@@ -3,7 +3,7 @@ import {
   createUser,
   getUserByID,
   swipe,
-  processClaim,
+  claimIdea,
 } from '../controllers/userController.js'
 import User from '../models/userModel.js'
 
@@ -15,7 +15,7 @@ router.post('/create', createUser)
 
 router.post('/swipe', swipe)
 
-router.post('/claim', processClaim)
+router.post('/claim', claimIdea)
 
 // this is a route for development purposes only
 router.post('/clearMalekIdeas', async (req, res) => {

@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema(
     credits: {
       type: Number,
       required: true,
+      default: 0,
     },
     swipedIdeas: [
       {
@@ -31,6 +32,12 @@ const userSchema = mongoose.Schema(
           type: String,
           enum: ['right', 'left'],
         },
+      },
+    ],
+    claimedIdeas: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Idea',
       },
     ],
   },

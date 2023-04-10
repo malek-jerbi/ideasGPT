@@ -9,7 +9,7 @@ const ideaSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  price: {
+  cost: {
     type: Number,
     required: true,
   }

@@ -31,7 +31,7 @@ export const getRandomIdea = async (req, res) => {
         const newIdeaText = await generateIdeaFromOpenAI()
 
         // Save the new idea to the database
-        const newIdea = new Idea({ text: newIdeaText, likes: 0 })
+        const newIdea = new Idea({ text: newIdeaText, likes: 0 ,cost:1})
         await newIdea.save()
 
         // Return the new idea
