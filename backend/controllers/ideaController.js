@@ -38,6 +38,10 @@ export const getRandomIdea = async (req, res) => {
         return
       } catch (error) {
         console.error('Error generating and saving new idea:', error)
+        if (error.message.includes('OpenAI API')) {
+          res.status(503).json({ message: 'OpenAI API is down' })
+          return
+        }
         throw error
       }
     }

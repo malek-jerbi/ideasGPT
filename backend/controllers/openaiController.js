@@ -21,6 +21,8 @@ async function generateIdea(req, res) {
   }
 
   try {
+    //uncomment this following line to simulate the OpenAI API being down
+    //throw new Error('OpenAI API error: An error occurred during your request.')
     const completion = await openai.createCompletion({
       model: 'text-davinci-003',
       prompt: generatePrompt(),
@@ -37,7 +39,9 @@ async function generateIdea(req, res) {
       throw new Error(error.response.data.message)
     } else {
       console.error(`Error with OpenAI API request: ${error.message}`)
-      throw new Error('An error occurred during your request.')
+      throw new Error(
+        'OpenAI API error: An error occurred during your request.'
+      )
     }
   }
 }

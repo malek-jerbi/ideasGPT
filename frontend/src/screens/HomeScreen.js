@@ -11,6 +11,8 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(false)
   const isSwiping = useRef(false)
   const { getAccessTokenSilently } = useAuth0()
+  const [openAIError, setOpenAIError] = useState(false)
+  const errorCardRef = useRef()
 
   useEffect(() => {
     fetchIdea()
@@ -41,7 +43,15 @@ export default function HomeScreen() {
       setLoading(false)
     } catch (error) {
       console.error(error)
-      alert(error.message)
+      setLoading(false)
+      if (
+        error.response &&
+        error.response.data.message.includes('OpenAI API')
+      ) {
+        setOpenAIError(true)
+      } else {
+        alert(error.message)
+      }
     }
   }
 
@@ -89,28 +99,59 @@ export default function HomeScreen() {
     isSwiping.current = false
   }
 
+  const onSwipeErrorCard = () => {
+    if (errorCardRef.current) {
+      errorCardRef.current.reset()
+    }
+  }
+
   return (
     <div>
       <main>
-        {!loading && idea && (
+        {!loading && (
           <div className={styles.cardWrapper}>
-            <TinderCard
-              key={cardKey}
-              onSwipe={onSwipe}
-              onCardLeftScreen={onCardLeftScreen}
-              preventSwipe={['up', 'down']}
-            >
-              <Card className={`text-center ${styles.cardStyle}`}>
-                <Card.Body>
-                  <Card.Text className={styles.unselectable}>
-                    {idea.text}
-                  </Card.Text>
-                  <Card.Text className={styles.likes}>
-                    Likes: {idea.likes}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </TinderCard>
+            {openAIError ? (
+              // Error card
+              <TinderCard
+                key='error'
+                ref={errorCardRef}
+                onSwipe={onSwipeErrorCard}
+                onCardLeftScreen={() => {}}
+                preventSwipe={[]}
+              >
+                <Card className={`text-center ${styles.errorCardStyle}`}>
+                  <Card.Body>
+                    <Card.Title className={styles.unselectable}>
+                      Service is currently down
+                    </Card.Title>
+                    <Card.Text className={styles.unselectable}>
+                      Please try again later.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </TinderCard>
+            ) : (
+              idea && (
+                // Idea card
+                <TinderCard
+                  key={cardKey}
+                  onSwipe={onSwipe}
+                  onCardLeftScreen={onCardLeftScreen}
+                  preventSwipe={['up', 'down']}
+                >
+                  <Card className={`text-center ${styles.cardStyle}`}>
+                    <Card.Body>
+                      <Card.Text className={styles.unselectable}>
+                        {idea.text}
+                      </Card.Text>
+                      <Card.Text className={styles.likes}>
+                        Likes: {idea.likes}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </TinderCard>
+              )
+            )}
           </div>
         )}
       </main>
