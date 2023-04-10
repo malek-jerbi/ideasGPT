@@ -152,7 +152,7 @@ try {
   //   console.log('Idea with id', ideaId, 'deleted successfully');
   // }
 
-  // TODO: add to claim idea array
+  // TODO: add to claimed idea array
 
 
   if (balance >= price) {
