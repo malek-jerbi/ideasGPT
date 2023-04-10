@@ -54,11 +54,6 @@ const App = () => {
         <div>
           <h3> User is {isAuthenticated ? "Logged In": "Not Logged In"}</h3>
 
-          {/* can't read user.credits */}
-
-          {/* {isAuthenticated && <p style={{  color: "white",  fontFamily: 'Verdana, sans-serif'  }}>User ID: {user.sub}</p>} */}
-          {/* {isAuthenticated && <p style={{  color: "white",  fontFamily: 'Verdana, sans-serif'  }}>User's Credit: {user["credits"]}</p>} */}
-          {console.log(user.credits)}
         </div>
       </main>
       <Footer />

@@ -59,12 +59,17 @@ export const getUserByID = async (req, res) => {
         .status(404)
         .json({ status: 'fail', message: 'No user found with that ID' })
     }
-    res.status(200).json({ status: 'success', data: user })
+    // res.status(200).json({ status: 'success', data: user })
+
+    // added response's credits data 
 
     res.status(200).json({
       success: true,
       message: 'User Returned',
-      data: user,
+      data: {
+        user, 
+        credits: user.credits,
+       },
     })
   } catch (err) {
     // Invalid id
@@ -121,20 +126,26 @@ export const processClaim = async (req, res) => {
 try {
   console.log('processing claim in controller...')
   // Get the required information from the request body
-  const  ideaId  = req.body.ideaId
-  const idea = await Idea.findById(ideaId)
-  const userId = req.auth.payload.sub
-  const user = await User.findOne({ auth0Id: userId })
-  //const [balance, setBalance] = useState(user.credits || 0);
+  const { userId, ideaId } = req.body;
+  console.log('user ID and idea ID from req: ',userId, ideaId)
+
+  const idea = await Idea.findById(ideaId);
+  const user = await User.findById(userId);
+  console.log('user and idea from find by id: ',user, idea)
+
+  if (!idea) {
+    console.log('NULL idea')
+    return res.status(404).json({ error: `No idea found with ID ${ideaId}` });
+  }
   const balance = user["credits"];
   const price = idea["price"];
 
   console.log('idea id : ' + ideaId  + ' idea price: ' + price)
   console.log('user id : ' + user.id + ' balance : ' + balance)
 
-  // delete idea from database
-  // const deletedIdea = await Idea.findByIdAndDelete(ideaId)
-  
+  // delete idea from database - link to pierre's work - add to claim idea array
+
+  //  const deletedIdea = await Idea.findByIdAndDelete(ideaId)
   // if (!deletedIdea) {
   //   console.log('No idea found with id', ideaId);
   // } else {
@@ -151,7 +162,7 @@ try {
 
     user.credits = newBalance;
     await user.save();
-    res.send(user);
+    res.send({ credits: newBalance });
 
     console.log(`User current balance (${user.credits} credits)`);
 
