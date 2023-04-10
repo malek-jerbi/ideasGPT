@@ -28,7 +28,6 @@ function LoginButton() {
 
             const access_token = await getAccessTokenSilently();
 
-            console.log(access_token);
     
             if (access_token){
             const apiCall =  await userApi.createUser(payload, {

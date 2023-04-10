@@ -13,12 +13,19 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    likedIdeas: [
+    swipedIdeas: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Ideas",
+        idea: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Idea',
+        },
+        action: {
+          type: String,
+          enum: ['right', 'left'],
+        },
       },
     ],
+    
   },
   { timestamps: true }
 )

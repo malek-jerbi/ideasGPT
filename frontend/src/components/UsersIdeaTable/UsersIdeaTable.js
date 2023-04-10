@@ -1,9 +1,9 @@
 import { TableCell, TableContainer, TableHead, TableRow , Table, TableBody, Paper, Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
 
+// instead of swiped ideas it would be the likedIdeas from the UserProfile Screen, and then claimedIdeas when u implement it 
 const UsersIdeaTable = ({swipedIdeas}) => {
-    const [ideasData, setIdeasData] = useState([]);
+    
 
     useEffect(() => {
         
