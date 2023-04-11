@@ -26,8 +26,10 @@ export const getRandomIdea = async (req, res) => {
     if (count === 0) {
       try {
         console.log('DEBUG: Generating new idea...')
+        const allIdeas = await Idea.find({})
+
         // Generate a new idea from OpenAI
-        const newIdeaText = await generateIdeaFromOpenAI()
+        const newIdeaText = await generateIdeaFromOpenAI(allIdeas)
 
         // Save the new idea to the database
         const newIdea = new Idea({ text: newIdeaText, likes: 0 })

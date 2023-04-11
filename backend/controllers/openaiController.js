@@ -9,7 +9,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration)
 
-async function generateIdea(req, res) {
+async function generateIdea(existingIdeas, req, res) {
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -23,15 +23,13 @@ async function generateIdea(req, res) {
   try {
     //uncomment this following line to simulate the OpenAI API being down
     //throw new Error('OpenAI API error: An error occurred during your request.')
-    const completion = await openai.createCompletion({
-      model: 'text-davinci-003',
-      prompt: generatePrompt(),
+    const completion = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: generatePrompt(existingIdeas),
       temperature: 0.6,
-      max_tokens: 350,
-      suffix: '7',
+      max_tokens: 1000,
     })
-
-    return completion.data.choices[0].text
+    return completion.data.choices[0].message.content
   } catch (error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {
@@ -46,14 +44,36 @@ async function generateIdea(req, res) {
   }
 }
 
-function generatePrompt() {
-  return `suggest only one more startup idea for people who have background of programming and computer science.
-  1- An AI-driven platform for online tutoring and education, with personalized learning programs tailored to each student's needs. 
-  2- A software development service that creates custom applications for businesses in need of automation or improved efficiency. 
-  3- A cloud-based data storage and sharing platform designed specifically for medical professionals and researchers to securely store patient records and share research findings more easily among colleagues globally. 
-  4- A blockchain-powered marketplace that connects freelancers with employers looking for short-term projects requiring advanced programming skillsets, such as developing smart contracts or creating decentralized applications (DApps). 
-  5- An artificial intelligence (AI)-driven search engine which uses natural language processing (NLP) algorithms to match job seekers.
-  6-`
+function generatePrompt(existingIdeas) {
+  // Create an initial array with the system message
+  const chatCompletion = [
+    {
+      role: 'system',
+      content: `You are a helpful assistant that suggests startup ideas for people with a background in programming and computer science. You never answer as if you were in a conversation. for example, "Sure, here is another startup idea..." is not accepted.  you only answer with a raw idea. The following are existing ideas:`,
+    },
+  ]
+
+  // Take only the last 10 ideas if there are more than 10
+  const lastTenIdeas =
+    existingIdeas.length > 10
+      ? existingIdeas.slice(existingIdeas.length - 10)
+      : existingIdeas
+
+  // Add existing ideas from the database as user messages
+  lastTenIdeas.forEach((idea) => {
+    chatCompletion.push({
+      role: 'user',
+      content: idea.text,
+    })
+  })
+
+  // Add the final user message asking for a new idea
+  chatCompletion.push({
+    role: 'user',
+    content: 'Suggest only one more startup idea.',
+  })
+
+  return chatCompletion
 }
 
 export { generateIdea }

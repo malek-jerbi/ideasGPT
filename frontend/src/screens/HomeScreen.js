@@ -45,8 +45,9 @@ export default function HomeScreen() {
       console.error(error)
       setLoading(false)
       if (
-        error.response &&
-        error.response.data.message.includes('OpenAI API')
+        (error.response &&
+          error.response.data.message.includes('OpenAI API')) ||
+        error.response.data.message.includes('Error fetching idea')
       ) {
         setOpenAIError(true)
       } else {
