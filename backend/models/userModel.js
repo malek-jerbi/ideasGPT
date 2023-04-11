@@ -1,9 +1,13 @@
-//This is just a template for now, up to @Mohit to personalize it as per his needs
-
 import mongoose from 'mongoose'
 
 const userSchema = mongoose.Schema(
   {
+    auth0Id: {
+      // Add this field to store the Auth0 'sub'
+      type: String,
+      required: true,
+      unique: true,
+    },
     name: {
       type: String,
       required: true,
@@ -13,10 +17,18 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
+    swipedIdeas: [
+      {
+        idea: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Idea',
+        },
+        action: {
+          type: String,
+          enum: ['right', 'left'],
+        },
+      },
+    ],
   },
   { timestamps: true }
 )

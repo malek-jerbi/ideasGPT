@@ -2,9 +2,9 @@
 
 import express from 'express'
 const router = express.Router()
-import { getIdeas, getIdeaById } from '../controllers/ideaController.js'
+import { getIdeas, getRandomIdea } from '../controllers/ideaController.js'
 
 router.get('/', getIdeas)
-router.get('/:id', getIdeaById)
+router.get('/random', getRandomIdea)
 
 export default router
