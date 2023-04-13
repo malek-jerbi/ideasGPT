@@ -1,5 +1,6 @@
 import { TableCell, TableContainer, TableHead, TableRow , Table, TableBody, Paper, Button } from "@mui/material";
 import React from "react";
+import ClaimButton from "../ClaimButton";
 
 const UsersIdeaTable = ({ likedIdeas = [] }) => {
     return (
@@ -18,9 +19,7 @@ const UsersIdeaTable = ({ likedIdeas = [] }) => {
                           <TableRow key={idea.idea}>
                               <TableCell>{idea.ideaText}</TableCell>
                               <TableCell>
-                                  <Button variant="contained" color="primary">
-                                      Claim
-                                  </Button>
+                                  <ClaimButton ideaId={idea._id} fetchIdea={() => {}} />
                               </TableCell>
                           </TableRow>
                       ))}
