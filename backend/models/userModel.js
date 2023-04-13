@@ -17,6 +17,11 @@ const userSchema = mongoose.Schema(
       required: true,
       unique: true,
     },
+    credits: {
+      type: Number,
+      required: true,
+      default: 10,
+    },
     swipedIdeas: [
       {
         idea: {
@@ -26,6 +31,28 @@ const userSchema = mongoose.Schema(
         action: {
           type: String,
           enum: ['right', 'left'],
+        },
+      },
+    ],
+    claimedIdeas: [
+      {
+        idea: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Idea',
+        },
+        ideaText: {
+          type: String,
+        },
+    }
+    ],
+    likedIdeas: [
+      {
+        idea: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Idea',
+        },
+        ideaText: {
+          type: String,
         },
       },
     ],

@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap'
 import styles from './HomeScreen.module.css'
 import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
+import ClaimButton from '../components/ClaimButton'
 
 export default function HomeScreen() {
   const [idea, setIdea] = useState(null)
@@ -155,6 +156,7 @@ export default function HomeScreen() {
             )}
           </div>
         )}
+        {idea && <ClaimButton ideaId={idea.id} fetchIdea={fetchIdea} style={{ color: "white", fontFamily: 'Verdana, sans-serif' }} />}
       </main>
     </div>
   )

@@ -59,7 +59,7 @@ export const getUserByID = async (req, res) => {
         .status(404)
         .json({ status: 'fail', message: 'No user found with that ID' })
     }
-    res.status(200).json({ status: 'success', data: user })
+    //res.status(200).json({ status: 'success', data: user })
 
     res.status(200).json({
       success: true,
@@ -99,6 +99,18 @@ export const swipe = async (req, res) => {
 
     // Implement the likes logic based on the action
     if (action === 'right') {
+      const idea = await Idea.findById(ideaId);
+      await User.updateOne(
+        { auth0Id: userId },
+        {
+          $addToSet: {
+            likedIdeas: {
+              idea: ideaId,
+              ideaText: idea.text,
+            },
+          },
+        }
+      );
       await Idea.findByIdAndUpdate(ideaId, { $inc: { likes: 1 } })
     } else if (action === 'left') {
       await Idea.findByIdAndUpdate(ideaId, { $inc: { likes: -1 } })
@@ -114,3 +126,64 @@ export const swipe = async (req, res) => {
       .json({ error: 'An error occurred while recording the swipe' })
   }
 }
+
+
+export const processClaim = async (req, res) => {
+
+  try {
+    console.log('processing claim in controller...')
+    // Get the required information from the request body
+    const { userId, ideaId } = req.body;
+    console.log('user ID and idea ID from req: ',userId, ideaId)
+  
+    const idea = await Idea.findById(ideaId);
+    const user = await User.findById(userId);
+    console.log('user and idea from find by id: ',user, idea)
+  
+    if (!idea) {
+      console.log('NULL idea')
+      return res.status(404).json({ error: `No idea found with ID ${ideaId}` });
+    }
+
+    // Check if the idea has already been claimed
+    if (idea.claimed) {
+      console.log('Idea has already been claimed');
+      return res.status(400).json({ error: 'Idea has already been claimed by another user' });
+    }
+
+    const balance = user["credits"];
+    const price = idea["price"];
+  
+    console.log('idea id : ' + ideaId  + ' idea price: ' + price)
+    console.log('user id : ' + user.id + ' balance : ' + balance)
+
+    if (balance >= price) {
+      console.log(`User has sufficient balance (${balance} credits)`);
+  
+      const newBalance = balance - price;
+  
+      user.credits = newBalance;
+      await user.save();
+      res.send({ credits: newBalance });
+
+      // Add the claimed idea to the user's claimedIdeas array
+      user.claimedIdeas.push({ idea: ideaId, ideaText: idea.text });
+      await user.save();
+
+      // Set the idea's claimed status and claimedBy fields
+      idea.claimed = true;
+      await idea.save();
+  
+      console.log(`User current balance (${user.credits} credits) and claimed ideas (${user.claimedIdeas})`);
+  
+    } else {
+      console.log(`User has insufficient balance (${balance} credits)`);
+      alert("Insufficient credits!");
+      return;
+    }
+    
+  } catch (error) {
+    res.status(500).json({ message: 'Error processing claim' })
+  }
+  }
+  
