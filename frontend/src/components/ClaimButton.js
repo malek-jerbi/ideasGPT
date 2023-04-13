@@ -49,13 +49,7 @@ function ClaimButton({ ideaId, fetchIdea }) {
 
 const handleClaim = async (ideaId, userId, accessToken) => {
     try {
-      const res = await axios.post(`/users/processClaim`, {  userId: userId,
-        ideaId: ideaId, },  {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    ); 
+    const res = await userApi.processClaim({ userId, ideaId }, accessToken);
     console.log('inside handleClaim ideaId: ',ideaId);
     const { credits } = res.data;
     setUserCredit(credits);

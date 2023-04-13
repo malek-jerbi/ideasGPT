@@ -19,7 +19,7 @@ const UsersIdeaTable = ({ likedIdeas = [] }) => {
                           <TableRow key={idea.idea}>
                               <TableCell>{idea.ideaText}</TableCell>
                               <TableCell>
-                                  <ClaimButton ideaId={idea._id} fetchIdea={() => {}} />
+                                  <ClaimButton ideaId={idea._id} fetchIdea={false} />
                               </TableCell>
                           </TableRow>
                       ))}
