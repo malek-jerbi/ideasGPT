@@ -28,6 +28,9 @@ const userSchema = mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Idea',
         },
+        ideaText: {
+          type: String,
+        },
         action: {
           type: String,
           enum: ['right', 'left'],
@@ -43,18 +46,7 @@ const userSchema = mongoose.Schema(
         ideaText: {
           type: String,
         },
-    }
-    ],
-    likedIdeas: [
-      {
-        idea: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Idea',
-        },
-        ideaText: {
-          type: String,
-        },
-      },
+      }
     ],
   },
   { timestamps: true }

@@ -74,6 +74,7 @@ export default function HomeScreen() {
         {
           ideaId: idea.id,
           action: direction,
+          ideaText: idea.text,
         },
         {
           headers: {

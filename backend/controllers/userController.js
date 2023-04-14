@@ -75,7 +75,7 @@ export const getUserByID = async (req, res) => {
 export const swipe = async (req, res) => {
   try {
     // Get the required information from the request body
-    const { ideaId, action } = req.body
+    const { ideaId, action,ideaText } = req.body
     const userId = req.auth.payload.sub
 
     // Find the user by their auth0Id
@@ -91,6 +91,7 @@ export const swipe = async (req, res) => {
         $addToSet: {
           swipedIdeas: {
             idea: ideaId,
+            ideaText: ideaText,
             action: action,
           },
         },
@@ -99,18 +100,6 @@ export const swipe = async (req, res) => {
 
     // Implement the likes logic based on the action
     if (action === 'right') {
-      const idea = await Idea.findById(ideaId);
-      await User.updateOne(
-        { auth0Id: userId },
-        {
-          $addToSet: {
-            likedIdeas: {
-              idea: ideaId,
-              ideaText: idea.text,
-            },
-          },
-        }
-      );
       await Idea.findByIdAndUpdate(ideaId, { $inc: { likes: 1 } })
     } else if (action === 'left') {
       await Idea.findByIdAndUpdate(ideaId, { $inc: { likes: -1 } })

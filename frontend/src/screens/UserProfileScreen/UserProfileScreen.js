@@ -45,11 +45,11 @@ const UserProfileScreen = () => {
       setdbUser(apiCall.data.data)
     } catch (error) {}
   }
-
+  const rightSwipedIdeas = dbUser.swipedIdeas.filter(idea => idea.action === 'right');
   return (
     <>
       <StyledBox id='userProfile'>
-        {dbUser && <UsersIdeaTable likedIdeas={dbUser.likedIdeas} />}
+        {dbUser && <UsersIdeaTable swipedIdeas={rightSwipedIdeas} />}
         {dbUser && <ClaimedIdeasTable ClaimedIdeas={dbUser.claimedIdeas} />}
       </StyledBox>
     </>
