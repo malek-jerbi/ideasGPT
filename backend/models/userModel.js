@@ -45,17 +45,6 @@ const userSchema = mongoose.Schema(
         },
     }
     ],
-    likedIdeas: [
-      {
-        idea: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Idea',
-        },
-        ideaText: {
-          type: String,
-        },
-      },
-    ],
   },
   { timestamps: true }
 )
