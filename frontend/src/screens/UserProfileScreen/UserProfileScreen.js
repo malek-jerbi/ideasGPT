@@ -23,8 +23,6 @@ const StyledBox = styled(
   margin: 'auto',
   marginTop: 25,
   borderRadius: 50,
-  height: 1000,
-  width: 1000,
   display: 'flex',
   justifyContent: 'center',
   padding: 50,

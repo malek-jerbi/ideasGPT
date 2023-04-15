@@ -107,6 +107,7 @@ export default function HomeScreen() {
   }
 
   return (
+    <>
     <div>
       <main>
         {!loading && (
@@ -157,5 +158,6 @@ export default function HomeScreen() {
         )}
       </main>
     </div>
+  </>
   )
 }

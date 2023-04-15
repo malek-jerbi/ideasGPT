@@ -52,12 +52,16 @@ const App = () => {
         </Container>
 
         <div>
-          <h3> User is {isAuthenticated ? "Logged In": "Not Logged In"}</h3>
 
     
          
         </div>
+        <div>
+        <h3> User is {isAuthenticated ? "Logged In": "Not Logged In"}</h3>
+        </div>
+        
       </main>
+      
       <Footer />
     </BrowserRouter>
     </AuthContextProvider>
