@@ -31,6 +31,11 @@ const userSchema = mongoose.Schema(
         ideaText: {
           type: String,
         },
+        claimed: {
+          type: Boolean,
+          required: true,
+          default: false,
+        },
         action: {
           type: String,
           enum: ['right', 'left'],

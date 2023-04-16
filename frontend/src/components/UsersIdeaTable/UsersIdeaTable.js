@@ -18,9 +18,11 @@ const UsersIdeaTable = ({ swipedIdeas = [] }) => {
             {swipedIdeas.map((idea) => (
               <TableRow key={idea.idea}>
                 <TableCell>{idea.ideaText}</TableCell>
-                <TableCell>
-                  <ClaimButton ideaId={idea._id} fetchIdea={false} />
+                {!idea.claimed && (<TableCell>
+                  <ClaimButton ideaId={idea.idea} fetchIdea={false} />
                 </TableCell>
+                )
+               }
               </TableRow>
             ))}
           </TableBody>
@@ -28,6 +30,7 @@ const UsersIdeaTable = ({ swipedIdeas = [] }) => {
       </TableContainer>
     </>
   );
+
 };
 
 export default UsersIdeaTable;

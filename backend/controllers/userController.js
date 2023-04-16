@@ -162,6 +162,19 @@ export const processClaim = async (req, res) => {
       // Set the idea's claimed status and claimedBy fields
       idea.claimed = true;
       await idea.save();
+
+      // changing claimed status in swipedIdeas to true
+      User.findOneAndUpdate(
+        { _id: userId, 'swipedIdeas.idea': ideaId }, // find user document with matching ID and swiped idea with matching ID
+        { $set: { 'swipedIdeas.$.claimed': true } }, // update claimed field to true for matching swiped idea
+        { new: true } // return updated user document after update is applied
+      )
+        .then(updatedUser => {
+          console.log('Updated user:', updatedUser);
+        })
+        .catch(error => {
+          console.log('Error updating user:', error);
+        });
   
       console.log(`User current balance (${user.credits} credits) and claimed ideas (${user.claimedIdeas})`);
   
