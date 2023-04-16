@@ -52,7 +52,6 @@ const App = () => {
         </Container>
 
         <div>
-          <h3> User is {isAuthenticated ? "Logged In": "Not Logged In"}</h3>
 
     
          
