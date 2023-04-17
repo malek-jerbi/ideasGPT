@@ -7,23 +7,6 @@ import ClaimedIdeasTable from '../../components/ClaimedIdeasTable/ClaimedIdeasTa
 import { useAuth0 } from '@auth0/auth0-react'
 import userApi from '../../api/UserApi.js'
 
-const StyledBox = styled(Box)({
-  color: '#6B068',
-  backgroundColor: '#F5F5F5',
-  boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.75)',
-  margin: 'auto',
-  marginTop: 25,
-  borderRadius: 25,
-  minHeight: '90vh',
-  maxWidth: 1000,
-  padding: 50,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  gap: 25,
-})
-
 const UserProfileScreen = () => {
   const { dbUser, setdbUser } = useContext(AuthContext)
   const { getAccessTokenSilently } = useAuth0()
@@ -48,12 +31,13 @@ const UserProfileScreen = () => {
   const rightSwipedIdeas = dbUser.swipedIdeas.filter(idea => idea.action === 'right');
   return (
     <>
-      <StyledBox id='userProfile'>
+        
         {dbUser && <UsersIdeaTable swipedIdeas={rightSwipedIdeas} />}
         {dbUser && <ClaimedIdeasTable ClaimedIdeas={dbUser.claimedIdeas} />}
-      </StyledBox>
     </>
   )
 }
 
 export default UserProfileScreen
+
+// where in the code is faviso

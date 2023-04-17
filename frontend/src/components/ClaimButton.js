@@ -78,7 +78,7 @@ const handleClaim = async (ideaId, userId, accessToken) => {
 
   return isAuthenticated ? (
     <div>
-      <p style={{ color: "white", fontFamily: 'Verdana, sans-serif' }}>Your Credit: {userCredit}</p>
+      <p style={{fontFamily: 'Verdana, sans-serif' }}>Credits: {userCredit}</p>
       <button disabled={userCredit < 1} onClick={handleClaimClick}>
         Claim Idea
       </button>

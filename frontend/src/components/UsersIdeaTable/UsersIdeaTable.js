@@ -5,13 +5,13 @@ import ClaimButton from '../ClaimButton';
 const UsersIdeaTable = ({ swipedIdeas = [] }) => {
   return (
     <>
-      <h1>Liked Ideas</h1>
+      <h1 id="liked-title">Liked Ideas</h1>
       <TableContainer overflow-y='scrollS' component={Paper} id='userProfTable'>
         <Table options={{ maxBodyHeight: 100 }}>
           <TableHead>
             <TableRow>
-              <TableCell>Description</TableCell>
-              <TableCell>Claim</TableCell>
+              <TableCell><h5>Description</h5></TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -28,6 +28,7 @@ const UsersIdeaTable = ({ swipedIdeas = [] }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      
     </>
   );
 
