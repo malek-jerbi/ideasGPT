@@ -23,6 +23,8 @@ const MostLiked = () => {
     fetchIdeas()
   }, [])
 
+
+
   return (
     <>
       <h1 id="mostLikeTitle">Most Liked Ideas</h1>

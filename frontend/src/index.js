@@ -29,5 +29,5 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals()
 
-// where in the code is favicon.ico mentioned?
-// Path: frontend\src\index.js
+// how to change the favicon CODE?
+// Path: frontend\public\index.html

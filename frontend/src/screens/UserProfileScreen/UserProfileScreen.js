@@ -31,6 +31,7 @@ const UserProfileScreen = () => {
   const rightSwipedIdeas = dbUser.swipedIdeas.filter(idea => idea.action === 'right');
   return (
     <>
+        
         {dbUser && <UsersIdeaTable swipedIdeas={rightSwipedIdeas} />}
         {dbUser && <ClaimedIdeasTable ClaimedIdeas={dbUser.claimedIdeas} />}
     </>
@@ -39,5 +40,4 @@ const UserProfileScreen = () => {
 
 export default UserProfileScreen
 
-// where in the code is favicon.ico mentioned?
-// Path: frontend\src\index.js
+// where in the code is faviso

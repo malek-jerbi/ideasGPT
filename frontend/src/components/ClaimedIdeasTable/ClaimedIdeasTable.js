@@ -4,12 +4,12 @@ import React from "react";
 const ClaimedIdeasTable = ({ ClaimedIdeas = [] }) => {
     return (
         <>
-          <h1>Claimed Ideas</h1>
+          <h1 id="claimed-title">Claimed Ideas</h1>
           <TableContainer overflow-y="scrollS" component={Paper} id="userProfTable">
               <Table options={{maxBodyHeight:100}}>
                   <TableHead>
                       <TableRow>
-                          <TableCell>Description</TableCell>
+                          <TableCell><h5>Description</h5></TableCell>
                       </TableRow>
                   </TableHead>
                   <TableBody>
@@ -21,6 +21,7 @@ const ClaimedIdeasTable = ({ ClaimedIdeas = [] }) => {
                   </TableBody>
               </Table>
           </TableContainer>
+          
         </>
     )
 }

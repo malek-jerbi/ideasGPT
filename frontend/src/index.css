@@ -8,9 +8,25 @@ main {
   text-align: center;
   font-family: 'Roboto', sans-serif;
   padding-bottom:50px;
+  padding-top:50px;
 }
 .nav {
  margin-left: auto;
+}
+
+header{
+  background-color: #202123;
+  overflow: hidden;
+  margin:0;
+  /*Fixed position*/
+  position: fixed;
+  
+  /*Full width*/
+  width: 100%;
+  z-index: 1;
+
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 #nav-logo {
@@ -20,6 +36,19 @@ main {
   margin-bottom:10px;
   margin-right: 7px;
   padding: 0;
+}
+
+.navbar{
+  border:none;
+}
+
+.nav-link{
+  color:white !important;
+}
+
+.nav-link:hover{
+  color: #FF8C00 !important;
+  font-weight: 400;
 }
 
 .navbar button{
@@ -35,7 +64,7 @@ main {
 }
 
 #navbar-brand{
-  color:black !important;
+  color:white !important;
   font-weight: 400;
   font-family: 'Roboto', sans-serif;
 }
@@ -51,10 +80,18 @@ h1 {
 
 #userProfTable{
   margin-top:40px;
+  background-color: #7E7F8C;
+  color:white !important;
+}
+
+#userProfTable td:nth-child(1), .MuiTableCell-root h5 {
+  color: white;
+  font-size:18px;
 }
 
 #userProfTable td:nth-child(2) {
   width: 10%;
+  color: white;
 }
 
 /*Add top margin for each tablerow of #userProfTable*/
@@ -64,18 +101,20 @@ h1 {
 
 #userProfTable button{
   background-color:#FF8C00;
+  border:none;
+  color:white;
 }
 
 /* hover effect of the button above that inverts the color*/
 #userProfTable button:hover{
-  background-color:white;
+  background-color:#7E7F8C;
   color: #FF8C00;
   border:1px solid #FF8C00
 }
 
-#mostLikeTitle{
+#mostLikeTitle, #liked-title, #claimed-title{
   color:white;
-  margin: 40px;
+  margin: 60px!important;
 }
 
 .row {
@@ -103,6 +142,8 @@ footer{
   text-align: center;
   height: 75px;
   overflow: hidden;
+  background-color: #2E3033;
+  color:white;
 }
 
 
