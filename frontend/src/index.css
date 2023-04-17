@@ -127,14 +127,18 @@ h1 {
   padding:20px;
   color: white;
   background-color: #7E7F8C;
-  min-height: 350px;
+  min-height: 400px;
   padding-top:60px;
   border-radius: 40px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: left;
 }
 
-.mostLikeCard p{
-  color:#FF8C00;
+.card p{
+  /* Make it look like a heart */
+  font-size: 20px;
+  color: #D2D9D4;
+  margin-top:50px;
 }
 
 footer{
@@ -148,10 +152,3 @@ footer{
 
 
 /* #202123 */
-
-/* Which of the CSS above is not used? */
-/* E. #navbar-brand */
-/* F. #userProfTable */
-/* G. #mostLikeTitle */
-/* H. .mostLikeRow */
-/* I. .mostLikeCard */

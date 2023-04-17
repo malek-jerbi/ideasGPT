@@ -34,7 +34,7 @@ const MostLiked = () => {
           <Row key={idea._id}>
             <Card>
               <h4>{idea.text}</h4>
-              <p>likes: {idea.likes}</p>
+              <p>Likes: {idea.likes}</p>
             </Card>
           </Row>
         ))}
