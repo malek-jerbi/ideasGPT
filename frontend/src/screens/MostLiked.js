@@ -25,7 +25,7 @@ const MostLiked = () => {
 
   return (
     <>
-      <h1>Most Liked Ideas</h1>
+      <h1 id="mostLikeTitle">Most Liked Ideas</h1>
       {ideas
         .sort((a, b) => b.likes - a.likes)
         .map((idea) => (

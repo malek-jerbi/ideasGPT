@@ -1,5 +1,5 @@
 main {
-  min-height: 80vh;
+  min-height: 90vh;
   background-color: #343541;
   display: flex;
   flex-direction: column;
@@ -7,10 +7,110 @@ main {
   justify-content: center;
   text-align: center;
   font-family: 'Roboto', sans-serif;
+  padding-bottom:50px;
 }
 .nav {
  margin-left: auto;
 }
 
+#nav-logo {
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  margin-bottom:10px;
+  margin-right: 7px;
+  padding: 0;
+}
+
+.navbar button{
+  color:white;
+  background-color: #FF8C00;
+  border:none;
+}
+
+.navbar button:hover{
+  color: #FF8C00;
+  background-color: white;
+  border:1px solid #FF8C00;
+}
+
+#navbar-brand{
+  color:black !important;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+.active{
+  color: #FF8C00 !important;
+  font-weight:400;
+}
+
+h1 {
+  color:white;
+}
+
+#userProfTable{
+  margin-top:40px;
+}
+
+#userProfTable td:nth-child(2) {
+  width: 10%;
+}
+
+/*Add top margin for each tablerow of #userProfTable*/
+#userProfTable tr {
+  margin-top: 10px;
+}
+
+#userProfTable button{
+  background-color:#FF8C00;
+}
+
+/* hover effect of the button above that inverts the color*/
+#userProfTable button:hover{
+  background-color:white;
+  color: #FF8C00;
+  border:1px solid #FF8C00
+}
+
+#mostLikeTitle{
+  color:white;
+  margin: 40px;
+}
+
+.row {
+  width:46%;
+  margin: 1% 2%;
+  float:left;
+}
+
+.card {
+  padding:20px;
+  color: white;
+  background-color: #7E7F8C;
+  min-height: 350px;
+  padding-top:60px;
+  border-radius: 40px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mostLikeCard p{
+  color:#FF8C00;
+}
+
+footer{
+  padding: 20px;
+  text-align: center;
+  height: 75px;
+  overflow: hidden;
+}
+
 
 /* #202123 */
+
+/* Which of the CSS above is not used? */
+/* E. #navbar-brand */
+/* F. #userProfTable */
+/* G. #mostLikeTitle */
+/* H. .mostLikeRow */
+/* I. .mostLikeCard */
