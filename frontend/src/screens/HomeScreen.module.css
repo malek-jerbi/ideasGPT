@@ -13,17 +13,13 @@
 
 .cardStyle {
   width: 18rem;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5); /* Really dark shadow */
 }
-
 
 .likes {
   font-size: 0.9rem;
-  color: #4d7358;
+  color: #757575;
   margin-top: 0.5rem;
-  font-weight: bold; /* Make the text bold */
 }
-
 
 .iconContainer {
   display: flex;
@@ -51,13 +47,9 @@
   width: 18rem;
   height: 15rem;
   margin: auto;
-  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 2rem;
-}
-
-.background {
-  background-color: black;
 }

@@ -109,7 +109,6 @@ export default function HomeScreen() {
   }
 
   return (
-    <>
     <div>
       <main>
         {!loading && (
@@ -161,6 +160,5 @@ export default function HomeScreen() {
         {idea && <ClaimButton ideaId={idea.id} fetchIdea={fetchIdea} style={{ color: "white", fontFamily: 'Verdana, sans-serif' }} />}
       </main>
     </div>
-  </>
   )
 }
