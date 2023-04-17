@@ -1,3 +1,5 @@
+/* ======================= General CSS ======================== */
+
 main {
   min-height: 90vh;
   background-color: #343541;
@@ -78,6 +80,61 @@ h1 {
   color:white;
 }
 
+footer{
+  padding: 20px;
+  text-align: center;
+  height: 75px;
+  overflow: hidden;
+  background-color: #2E3033;
+  color:white;
+}
+
+
+/* ========================== Home Page ==========================   */
+
+#new-idea{
+  /* Make the card look squared*/
+  width: 30rem;
+  height: 15rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+}
+
+#credit{
+  color:white;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+#claim-btn-home{
+  margin-top: 30px;
+}
+
+#claim-btn-home p{
+  color:white;
+  float:left;
+}
+
+#claim-btn-home button{
+  background-color:#FF8C00;
+  border:none;
+  color:white;
+  float:right;
+  margin-left:20px;
+}
+
+/* hover effect of the button above that inverts the color*/
+#claim-btn-home button:hover{
+  background-color:#343541;
+  color: #FF8C00;
+  border:1px solid #FF8C00;
+}
+
+/* ===================== My Profile Page ======================= */
+
 #userProfTable{
   margin-top:40px;
   background-color: #7E7F8C;
@@ -117,6 +174,8 @@ h1 {
   margin: 60px!important;
 }
 
+/* ============================ Most Liked CSS ============================== */
+
 .row {
   width:46%;
   margin: 1% 2%;
@@ -141,14 +200,7 @@ h1 {
   margin-top:50px;
 }
 
-footer{
-  padding: 20px;
-  text-align: center;
-  height: 75px;
-  overflow: hidden;
-  background-color: #2E3033;
-  color:white;
-}
+
 
 
 /* #202123 */
