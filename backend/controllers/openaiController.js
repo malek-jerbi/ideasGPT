@@ -10,7 +10,7 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 async function generateIdea(existingIdeas, req, res) {
-  if (!configuration.apiKey) {
+  if (!openai.configuration.apiKey) {
     res.status(500).json({
       error: {
         message:

@@ -18,7 +18,8 @@ export const getRandomIdea = async (req, res) => {
 
     // Retrieve the user's swiped ideas
     const user = await User.findOne({ auth0Id: auth0Id })
-    const swipedIdeaIds = user.swipedIdeas.map((swipe) => swipe.idea)
+    const swipedIdeaIds = user?.swipedIdeas?.map((swipe) => swipe.idea) ?? [];
+
 
     // Get the count of ideas not in the user's swipedIdeas array
     const count = await Idea.countDocuments({
