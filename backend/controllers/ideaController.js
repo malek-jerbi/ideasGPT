@@ -68,3 +68,18 @@ export const getRandomIdea = async (req, res) => {
     res.status(500).json({ message: 'Error fetching idea' })
   }
 }
+
+export const deleteIdea = async (req, res) => {
+  try {
+    const idea = await Idea.findByIdAndDelete(req.params.id);
+
+    if (!idea) {
+      res.status(404).json({ message: 'Idea not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Idea deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting idea', error });
+  }
+};

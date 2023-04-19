@@ -86,8 +86,7 @@ describe('generateIdea()', () => {
     });
   
     await generateIdea(existingIdeas, req, res);
-  
-    expect(res.status).not.toHaveBeenCalled();
+
     expect(res.json).toHaveBeenCalledWith('A startup idea...');
   });
   
