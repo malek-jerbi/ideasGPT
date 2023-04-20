@@ -1,28 +1,31 @@
-import User from '../models/userModel.js'
+import User from '../models/userModel.js';
 
 const testAuthMiddleware = async (req, res, next) => {
   try {
+    if (req.headers['x-skip-auth']) {
+      return next();
+    }
     // malek.jerbi11@gmail.com was created for testing purposes only.
-    const testUser = await User.findOne({ email: 'malek.jerbi11@gmail.com' })
+    const testUser = await User.findOne({ email: 'malek.jerbi11@gmail.com' });
 
     // Check if the test user exists, otherwise throw an error
     if (!testUser) {
-      throw new Error('Test user not found')
+      throw new Error('Test user not found');
     }
 
-    // Attach the test user's ID to the req.auth object
+    // Attach the test user's ID to the req.auth.payload object
     req.auth = {
       payload: {
-        sub: testUser._id,
+        sub: testUser._id.toString(),
       },
-    }
+    };
 
     // Continue with the next middleware or route handler
-    next()
+    next();
   } catch (error) {
-    console.error('Error in testAuthMiddleware:', error)
-    res.status(500).json({ error: 'An error occurred in testAuthMiddleware' })
+    console.error('Error in testAuthMiddleware:', error);
+    res.status(500).json({ error: 'An error occurred in testAuthMiddleware' });
   }
-}
+};
 
-export default testAuthMiddleware
+export default testAuthMiddleware;

@@ -21,17 +21,15 @@ async function generateIdea(existingIdeas, req, res) {
   }
 
   try {
-    //uncomment this following line to simulate the OpenAI API being down
-    //throw new Error('OpenAI API error: An error occurred during your request.')
     const completion = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
       messages: generatePrompt(existingIdeas),
       temperature: 0.6,
       max_tokens: 1000,
     })
+
     return completion.data.choices[0].message.content
   } catch (error) {
-    // Consider adjusting the error handling logic for your use case
     if (error.response) {
       console.error(error.response.status, error.response.data)
       throw new Error(error.response.data.message)
@@ -45,7 +43,6 @@ async function generateIdea(existingIdeas, req, res) {
 }
 
 function generatePrompt(existingIdeas) {
-  // Create an initial array with the system message
   const chatCompletion = [
     {
       role: 'system',
@@ -53,13 +50,11 @@ function generatePrompt(existingIdeas) {
     },
   ]
 
-  // Take only the last 10 ideas if there are more than 10
   const lastTenIdeas =
     existingIdeas.length > 10
       ? existingIdeas.slice(existingIdeas.length - 10)
       : existingIdeas
 
-  // Add existing ideas from the database as user messages
   lastTenIdeas.forEach((idea) => {
     chatCompletion.push({
       role: 'user',
@@ -67,7 +62,6 @@ function generatePrompt(existingIdeas) {
     })
   })
 
-  // Add the final user message asking for a new idea
   chatCompletion.push({
     role: 'user',
     content: 'Suggest only one more startup idea.',
@@ -76,4 +70,4 @@ function generatePrompt(existingIdeas) {
   return chatCompletion
 }
 
-export { generateIdea }
+export { generateIdea, generatePrompt }

@@ -40,4 +40,20 @@ describe('POST /users/swipe', () => {
     expect(res.status).toBe(200)
     expect(updatedIdea.likes).toBe(initialLikesCount + 1)
   })
+
+  test('Swipe left decreases the likes count of an idea', async () => {
+    const initialLikesCount = idea.likes
+
+    const res = await request(app).post('/users/swipe').send({
+      ideaId: idea._id,
+      action: 'left', // Use `action` instead of `direction`
+    })
+
+    // Refresh the idea data from the database
+    const updatedIdea = await Idea.findById(idea._id)
+
+    expect(res.status).toBe(200)
+    //Since it is liked first, its value is now 1, with the left swipe, it gets decreased back to 0
+    expect(updatedIdea.likes).toBe(0)
+  })
 })

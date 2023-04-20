@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap'
 import styles from './HomeScreen.module.css'
 import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
+import ClaimButton from '../components/ClaimButton'
 
 export default function HomeScreen() {
   const [idea, setIdea] = useState(null)
@@ -73,6 +74,7 @@ export default function HomeScreen() {
         {
           ideaId: idea.id,
           action: direction,
+          ideaText: idea.text,
         },
         {
           headers: {
@@ -140,7 +142,7 @@ export default function HomeScreen() {
                   onCardLeftScreen={onCardLeftScreen}
                   preventSwipe={['up', 'down']}
                 >
-                  <Card className={`text-center ${styles.cardStyle}`}>
+                  <Card id="new-idea" className={`text-center ${styles.cardStyle}`}>
                     <Card.Body>
                       <Card.Text className={styles.unselectable}>
                         {idea.text}
@@ -155,7 +157,16 @@ export default function HomeScreen() {
             )}
           </div>
         )}
+        <div id="claim-btn-home">{idea && <ClaimButton ideaId={idea.id} fetchIdea={fetchIdea} className="claim-btn"/>}</div>
+
       </main>
     </div>
   )
 }
+
+// q: How to change the CSS of only the ClaimButton component in HomeScreen.js?
+// a: Add a className to the ClaimButton component and use that className in the CSS file.
+
+// q: the classname is not working
+// a: The className is working, but the CSS is not being applied. This is because the CSS is not being imported in the HomeScreen.js file. Add the following line to the top of the file:
+// import styles from './HomeScreen.module.css'

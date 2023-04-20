@@ -1,5 +1,7 @@
+/* ======================= General CSS ======================== */
+
 main {
-  min-height: 80vh;
+  min-height: 90vh;
   background-color: #343541;
   display: flex;
   flex-direction: column;
@@ -7,9 +9,225 @@ main {
   justify-content: center;
   text-align: center;
   font-family: 'Roboto', sans-serif;
+  padding-bottom:50px;
+  padding-top:50px;
 }
 .nav {
  margin-left: auto;
+}
+
+header{
+  background-color: #202123;
+  overflow: hidden;
+  margin:0;
+  /*Fixed position*/
+  position: fixed;
+  
+  /*Full width*/
+  width: 100%;
+  z-index: 1;
+
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+#nav-logo {
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  margin-bottom:10px;
+  margin-right: 7px;
+  padding: 0;
+}
+
+.navbar{
+  border:none;
+}
+
+.nav-link{
+  color:white !important;
+}
+
+.nav-link:hover{
+  color: #FF8C00 !important;
+  font-weight: 400;
+}
+
+.navbar button{
+  color:white;
+  background-color: #FF8C00;
+  border:none;
+}
+
+.navbar button:hover{
+  color: #FF8C00;
+  background-color: #202123;
+  border:1px solid #FF8C00;
+}
+
+#navbar-brand{
+  color:white !important;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+.active{
+  color: #FF8C00 !important;
+  font-weight:400;
+}
+
+h1 {
+  color:white;
+}
+
+footer{
+  padding: 20px;
+  text-align: center;
+  height: 75px;
+  overflow: hidden;
+  background-color: #2E3033;
+  color:white;
+}
+
+
+/* ========================== Home Page ==========================   */
+
+#new-idea{
+  /* Make the card look squared*/
+  width: 30rem;
+  height: 15rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+}
+
+#credit{
+  color:white;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+#claim-btn-home{
+  margin-top: 30px;
+}
+
+#claim-btn-home p{
+  color:white;
+  float:left;
+}
+
+#claim-btn-home button{
+  background-color:#FF8C00;
+  border:none;
+  color:white;
+  float:right;
+  margin-left:20px;
+}
+
+/* hover effect of the button above that inverts the color*/
+#claim-btn-home button:hover{
+  background-color:#343541;
+  color: #FF8C00;
+  border:1px solid #FF8C00;
+}
+
+/* ===================== My Profile Page ======================= */
+
+#userProfTable{
+  margin-top:40px;
+  background-color: #7E7F8C;
+  color:white !important;
+}
+
+#userProfTable td:nth-child(1), .MuiTableCell-root h5 {
+  color: white;
+  font-size:18px;
+}
+
+#userProfTable td:nth-child(2) {
+  width: 10%;
+  color: white;
+}
+
+/*Add top margin for each tablerow of #userProfTable*/
+#userProfTable tr {
+  margin-top: 10px;
+}
+
+#userProfTable button{
+  background-color:#FF8C00;
+  border:none;
+  color:white;
+}
+
+/* hover effect of the button above that inverts the color*/
+#userProfTable button:hover{
+  background-color:#7E7F8C;
+  color: #FF8C00;
+  border:1px solid #FF8C00
+}
+
+#mostLikeTitle, #liked-title, #claimed-title{
+  color:white;
+  margin: 60px!important;
+}
+
+/* ============================ Most Liked CSS ============================== */
+
+.row {
+  width:46%;
+  margin: 1% 2%;
+  float:left;
+}
+
+.card {
+  padding:20px;
+  color: white;
+  background-color: #7E7F8C;
+  min-height: 400px;
+  padding-top:60px;
+  border-radius: 40px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: left;
+}
+
+.card p{
+  /* Make it look like a heart */
+  font-size: 20px;
+  color: #D2D9D4;
+  margin-top:50px;
+}
+
+/* Mobile version for .card */
+@media only screen and (max-width: 900px) {
+
+
+  #new-idea{
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+
+  .row {
+    width:100%;
+    float:left;
+  }
+
+  .card {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: auto;
+  }
 }
 
 
