@@ -18,7 +18,7 @@ export const getRandomIdea = async (req, res) => {
 
     // Retrieve the user's swiped ideas
     const user = await User.findOne({ auth0Id: auth0Id })
-    const swipedIdeaIds = user.swipedIdeas.map((swipe) => swipe.idea)
+    const swipedIdeaIds = user?.swipedIdeas?.map((swipe) => swipe.idea) ?? []
 
     // Get the count of ideas not in the user's swipedIdeas array
     const count = await Idea.countDocuments({
@@ -65,5 +65,20 @@ export const getRandomIdea = async (req, res) => {
   } catch (error) {
     console.error('Error fetching idea:', error)
     res.status(500).json({ message: 'Error fetching idea' })
+  }
+}
+
+export const deleteIdea = async (req, res) => {
+  try {
+    const idea = await Idea.findByIdAndDelete(req.params.id)
+
+    if (!idea) {
+      res.status(404).json({ message: 'Idea not found' })
+      return
+    }
+
+    res.status(200).json({ message: 'Idea deleted successfully' })
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting idea', error })
   }
 }
