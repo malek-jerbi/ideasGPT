@@ -24,7 +24,7 @@ beforeAll(async () => {
         testUser = new User({
         email: testUserEmail,
         auth0Id: 'test-auth0-id',
-        name: 'Test User', // Add a name for the test user
+        name: 'Test User', 
     });
     await testUser.save()
 }

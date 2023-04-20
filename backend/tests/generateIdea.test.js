@@ -1,5 +1,14 @@
-import { generateIdea, openai } from '../controllers/openaiController'; // Replace with your actual controller file path
-import { Configuration } from 'openai';
+import { generateIdea, generatePrompt } from '../controllers/openaiController'; // Replace with your actual controller file path
+import pkg from 'openai'
+import { OPENAI_API_KEY } from '../config.js'
+
+const { Configuration, OpenAIApi } = pkg
+
+const configuration = new Configuration({
+  apiKey: OPENAI_API_KEY,
+})
+
+const openai = new OpenAIApi(configuration)
 
 jest.mock('openai', () => {
   return {
@@ -31,8 +40,6 @@ describe('generateIdea()', () => {
   });
 
   it('returns error response when OpenAI API key is not configured', async () => {
-    // Set the API key to null
-    openai.configuration.apiKey = null;
 
     const req = {};
     const res = {
@@ -57,38 +64,19 @@ describe('generateIdea()', () => {
   
 
   it('returns a valid idea when called with a set of existing ideas', async () => {
-    // Set the API key to a sample value
-    openai.configuration.apiKey = 'sample-api-key';
-  
-    const req = {};
-    const res = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
-    };
-  
+    
     const existingIdeas = [
-      { text: 'Idea 1' },
-      { text: 'Idea 2' },
-      { text: 'Idea 3' },
+      { text: 'A mobile app that uses machine learning algorithms to identify and recommend similar products to customers based on their purchase history.' },
+      { text: 'A web-based platform that uses machine learning algorithms to analyze and optimize email marketing campaigns for businesses, helping them to increase open rates, click-through rates, and conversions.' },
+      { text: 'An AI-powered project management tool that uses natural language processing and machine learning to automate tasks, assign deadlines, and track progress, helping teams to collaborate more efficiently and complete projects on time.' },
     ];
-  
-    // Mock the openai.createChatCompletion method
-    openai.createChatCompletion.mockResolvedValue({
-      data: {
-        choices: [
-          {
-            message: {
-              content: 'A startup idea...',
-            },
-          },
-        ],
-      },
-    });
-  
-    await generateIdea(existingIdeas, req, res);
+    const completion = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: generatePrompt(existingIdeas),
+      temperature: 0.6,
+      max_tokens: 1000,
+    })
 
-    expect(res.json).toHaveBeenCalledWith('A startup idea...');
+    expect(completion.data.choices[0].message.content).toBe('A startup idea...')
   });
-  
-  
 });

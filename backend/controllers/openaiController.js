@@ -70,4 +70,4 @@ function generatePrompt(existingIdeas) {
   return chatCompletion
 }
 
-export { generateIdea }
+export { generateIdea, generatePrompt }
