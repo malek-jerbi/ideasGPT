@@ -28,30 +28,11 @@ const userSchema = mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Idea',
         },
-        ideaText: {
-          type: String,
-        },
-        claimed: {
-          type: Boolean,
-          required: true,
-          default: false,
-        },
         action: {
           type: String,
           enum: ['right', 'left'],
         },
       },
-    ],
-    claimedIdeas: [
-      {
-        idea: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Idea',
-        },
-        ideaText: {
-          type: String,
-        },
-      }
     ],
   },
   { timestamps: true }

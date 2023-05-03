@@ -23,11 +23,11 @@ const MostLiked = () => {
     fetchIdeas()
   }, [])
 
-
-
   return (
     <>
-      <h1 id="mostLikeTitle">Most Liked Ideas</h1>
+      <br></br>
+      <br></br>
+      <h1 id='mostLikeTitle'>Most Liked Ideas</h1>
       {ideas
         .sort((a, b) => b.likes - a.likes)
         .map((idea) => (

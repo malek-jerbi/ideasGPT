@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer>
       <Container>
-          <Col>SOEN 487 ftw</Col>
+        <Col>powered by Openai</Col>
       </Container>
     </footer>
   )

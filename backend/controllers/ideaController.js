@@ -23,7 +23,6 @@ export const getRandomIdea = async (req, res) => {
     // Get the count of ideas not in the user's swipedIdeas array
     const count = await Idea.countDocuments({
       _id: { $nin: swipedIdeaIds },
-      claimed: false,
     })
 
     if (count === 0) {
@@ -54,7 +53,6 @@ export const getRandomIdea = async (req, res) => {
     const randomIndex = Math.floor(Math.random() * count)
     const idea = await Idea.findOne({
       _id: { $nin: swipedIdeaIds },
-      claimed: false,
     }).skip(randomIndex)
 
     if (idea) {

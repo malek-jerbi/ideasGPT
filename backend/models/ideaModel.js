@@ -14,11 +14,6 @@ const ideaSchema = new mongoose.Schema({
     required: true,
     default: 1,
   },
-  claimed: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
 })
 
 const Idea = mongoose.model('Idea', ideaSchema)
