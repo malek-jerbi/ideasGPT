@@ -25,7 +25,6 @@ function LoginButton() {
             },
           })
 
-          console.log(apiCall.data.data)
           setdbUser(apiCall.data.data)
         }
       } catch (error) {}

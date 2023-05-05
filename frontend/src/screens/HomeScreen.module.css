@@ -12,7 +12,9 @@
 }
 
 .cardStyle {
-  width: 18rem;
+  width: 15rem; /* Decrease width */
+  height: auto; /* Adjust height */
+  font-size: 0.9rem; /* Decrease font size */
 }
 
 .likes {
@@ -44,12 +46,27 @@
   background-color: #f8d7da;
   border-color: #f5c6cb;
   color: #721c24;
-  width: 18rem;
-  height: 15rem;
+  width: 15rem; /* Decrease width */
+  height: auto; /* Adjust height */
   margin: auto;
   box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 2rem;
+}
+
+.description {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 0.05rem;
+  line-height: 1.4;
+  color: #f8f8f8;
+}
+
+.textContainer {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center;
 }

@@ -11,8 +11,6 @@ import testAuthMiddleware from './middleware/testAuthMiddleware.js'
 
 import bodyParser from 'body-parser'
 
-import openaiRoutes from './routes/openaiRoutes.js'
-
 dotenv.config()
 
 connectDB()

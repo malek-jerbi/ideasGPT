@@ -1,9 +1,6 @@
 import { React, useEffect, useContext } from 'react'
-import { Box } from '@mui/material'
 import AuthContext from '../../components/AuthContext.js'
-import { styled } from '@mui/system'
 import UsersIdeaTable from '../../components/UsersIdeaTable/UsersIdeaTable.js'
-import ClaimedIdeasTable from '../../components/ClaimedIdeasTable/ClaimedIdeasTable.js'
 import { useAuth0 } from '@auth0/auth0-react'
 import userApi from '../../api/UserApi.js'
 
@@ -28,16 +25,10 @@ const UserProfileScreen = () => {
       setdbUser(apiCall.data.data)
     } catch (error) {}
   }
-  const rightSwipedIdeas = dbUser.swipedIdeas.filter(idea => idea.action === 'right');
-  return (
-    <>
-        
-        {dbUser && <UsersIdeaTable swipedIdeas={rightSwipedIdeas} />}
-        {dbUser && <ClaimedIdeasTable ClaimedIdeas={dbUser.claimedIdeas} />}
-    </>
+  const rightSwipedIdeas = dbUser.swipedIdeas.filter(
+    (idea) => idea.idea && idea.action === 'right'
   )
+  return <>{dbUser && <UsersIdeaTable swipedIdeas={rightSwipedIdeas} />}</>
 }
 
 export default UserProfileScreen
-
-// where in the code is faviso
