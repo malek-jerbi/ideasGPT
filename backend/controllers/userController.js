@@ -4,6 +4,7 @@ import Idea from '../models/ideaModel.js'
 // save new user to database
 export const createUser = async (req, res) => {
   try {
+    console.log('req.body:', req.body)
     console.log('DEBUG: Inside CreateUser()')
 
     const { email, name } = req.body

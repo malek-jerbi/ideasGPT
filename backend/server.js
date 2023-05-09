@@ -37,7 +37,7 @@ const jwtCheck =
   process.env.NODE_ENV === 'test' ? testAuthMiddleware : authMiddleware
 
 // enforce on all endpoints
-//app.use(jwtCheck)
+app.use(jwtCheck)
 
 app.get('/authorized', function (req, res) {
   res.send('Secured Resource')

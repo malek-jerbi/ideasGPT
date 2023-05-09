@@ -14,6 +14,7 @@ const UserProfileScreen = () => {
 
   const getUserInfo = async () => {
     try {
+      console.log('ZZZZZZZZZ', dbUser)
       const access_token = await getAccessTokenSilently()
       console.log(dbUser)
 
@@ -25,6 +26,7 @@ const UserProfileScreen = () => {
       setdbUser(apiCall.data.data)
     } catch (error) {}
   }
+
   const rightSwipedIdeas = dbUser.swipedIdeas.filter(
     (idea) => idea.idea && idea.action === 'right'
   )
