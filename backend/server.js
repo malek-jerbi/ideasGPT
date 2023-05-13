@@ -24,7 +24,11 @@ app.use(express.json())
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
 
 const PORT = process.env.PORT || 5000
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+if (process.env.NODE_ENV === 'production') {
+  app.use(cors({ credentials: true, origin: 'http://localhost:5000' }))
+} else {
+  app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
+}
 
 // Add this middleware to log each incoming request
 app.use((req, res, next) => {
@@ -79,17 +83,17 @@ const jwtMiddleware = (req, res, next) => {
   )
 }
 
-//app.use(jwtCheck)
-app.use(jwtMiddleware)
+// Apply JWT middleware only to the protected routes
+app.use('/ideas', jwtMiddleware, ideaRoutes)
+app.use('/users', jwtMiddleware, userRouter)
 
 // Add this middleware to log the decoded JWT payload
 app.use((req, res, next) => {
-  console.log('Decoded JWT payload:', req.user)
+  if (req.user) {
+    console.log('Decoded JWT payload:', req.user)
+  }
   next()
 })
-
-app.use('/ideas', ideaRoutes)
-app.use('/users', userRouter)
 
 const __dirname = path.resolve()
 

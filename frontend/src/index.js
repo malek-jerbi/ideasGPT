@@ -14,7 +14,7 @@ root.render(
       domain='dev-xl04qgs7ocqc3337.us.auth0.com'
       clientId='jd6MnN0e5yJN8rGPQDiBG1pRB9ruzXdX'
       authorizationParams={{
-        redirect_uri: 'http://localhost:3000/',
+        redirect_uri: window.location.origin,
         audience: 'https://dev-xl04qgs7ocqc3337.us.auth0.com/api/v2/',
         scope: 'read:current_user update:current_user_metadata',
       }}
