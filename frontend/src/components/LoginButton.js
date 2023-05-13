@@ -17,7 +17,6 @@ function LoginButton() {
       const payload = { email: user.email, name: user.name }
       try {
         const access_token = await getAccessTokenSilently()
-        console.log('Access token:', access_token)
         if (access_token) {
           const apiCall = await userApi.createUser(payload, {
             headers: {

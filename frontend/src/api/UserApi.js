@@ -1,8 +1,9 @@
-import api from './ApiConfig'
+//import api from './ApiConfig'
+import axios from 'axios'
 
 const userApi = {
-  createUser: (payload, token) => api.post(`/users/create`, payload, token),
-  getUserByID: (id, token) => api.get(`/users/${id}`, token),
+  createUser: (payload, token) => axios.post(`/users/create`, payload, token),
+  getUserByID: (id, token) => axios.get(`/users/${id}`, token),
 }
 
 export default userApi
