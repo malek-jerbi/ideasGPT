@@ -6,59 +6,40 @@ import Footer from './components/Footer'
 import HomeScreen from './screens/HomeScreen'
 import MostLiked from './screens/MostLiked'
 import UserProfileScreen from './screens/UserProfileScreen/UserProfileScreen.js'
-import {useAuth0 } from '@auth0/auth0-react'
 import RestrictedRoutes from './components/CustomRouters/RestrictedRoutes'
 
-
 const App = () => {
-
-
-  const { user, isAuthenticated} = useAuth0()
-
-  if(isAuthenticated){
-
-    console.log(user);
-  }
   return (
     <AuthContextProvider>
-    <BrowserRouter>
-      <Header />
-      <main>
-        <Container>
-          <Routes>
-            <Route path='/' element={<HomeScreen />} exact />
-             
-            <Route
-             path="/mostliked"
-             element={
-              <RestrictedRoutes>
-                <MostLiked></MostLiked>
-              </RestrictedRoutes>
-             }
-            >
-            </Route>
+      <BrowserRouter>
+        <Header />
+        <main>
+          <Container>
+            <Routes>
+              <Route path='/' element={<HomeScreen />} exact />
 
-            <Route
-             path="/userProfile"
-             element={
-              <RestrictedRoutes>
-                <UserProfileScreen></UserProfileScreen>
-              </RestrictedRoutes>
-             }
-            >
-            </Route>
-            
-          </Routes>
-        </Container>
+              <Route
+                path='/mostliked'
+                element={
+                  <RestrictedRoutes>
+                    <MostLiked></MostLiked>
+                  </RestrictedRoutes>
+                }
+              ></Route>
 
-        <div>
-
-    
-         
-        </div>
-      </main>
-      <Footer />
-    </BrowserRouter>
+              <Route
+                path='/userProfile'
+                element={
+                  <RestrictedRoutes>
+                    <UserProfileScreen></UserProfileScreen>
+                  </RestrictedRoutes>
+                }
+              ></Route>
+            </Routes>
+          </Container>
+        </main>
+        <Footer />
+      </BrowserRouter>
     </AuthContextProvider>
   )
 }

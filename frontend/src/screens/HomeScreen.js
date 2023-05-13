@@ -10,13 +10,16 @@ export default function HomeScreen() {
   const [cardKey, setCardKey] = useState(0)
   const [loading, setLoading] = useState(false)
   const isSwiping = useRef(false)
-  const { getAccessTokenSilently } = useAuth0()
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0()
+
   const [openAIError, setOpenAIError] = useState(false)
   const errorCardRef = useRef()
 
   useEffect(() => {
-    fetchIdea()
-  }, [])
+    if (isAuthenticated) {
+      fetchIdea()
+    }
+  }, [isAuthenticated])
 
   async function fetchIdea() {
     if (loading) {
@@ -25,7 +28,6 @@ export default function HomeScreen() {
     setLoading(true)
     try {
       const token = await getAccessTokenSilently()
-      console.log(token)
       const response = await axios.get('/ideas/random', {
         headers: {
           Authorization: `Bearer ${token}`,
