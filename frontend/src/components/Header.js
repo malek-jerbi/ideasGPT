@@ -6,14 +6,15 @@ import Navbar from 'react-bootstrap/Navbar'
 import LoginButton from './LoginButton'
 import LogoutButton from './LogoutButton'
 
-
 const Header = () => {
   return (
     <header>
       <Navbar expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand id="navbar-brand"><img src="icon-2.png" id="nav-logo"></img> IdeasGPT</Navbar.Brand>
+            <Navbar.Brand id='navbar-brand'>
+              <img src='icon-2.png' id='nav-logo'></img> Ideas-for-you
+            </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>

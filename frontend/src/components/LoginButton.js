@@ -37,7 +37,7 @@ function LoginButton() {
           loginWithPopup()
         }}
       >
-        Sign In
+        Sign Up/Sign In
       </button>
     )
   )

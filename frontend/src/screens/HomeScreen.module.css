@@ -59,9 +59,19 @@
 .description {
   font-size: 1.1rem;
   text-align: center;
-  margin-bottom: 0.05rem;
-  line-height: 1.4;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #f8f8f8; /* Change color for better readability */
+  font-weight: 400; /* Add font weight for normal text */
+}
+
+.descriptionTitle {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.6;
   color: #f8f8f8;
+  font-weight: 600; /* Add font weight for title */
 }
 
 .textContainer {

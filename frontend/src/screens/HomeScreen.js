@@ -113,7 +113,7 @@ export default function HomeScreen() {
     <div>
       <main>
         <div className={styles.textContainer}>
-          <p className={styles.description}>Welcome to IdeasGPT!</p>
+          <p className={styles.descriptionTitle}>Welcome to Ideas-for-you!</p>
           <p className={styles.description}>
             This app helps people with programming skills spark their creativity
             in starting a business.
