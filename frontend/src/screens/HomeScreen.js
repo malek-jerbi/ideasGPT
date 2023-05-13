@@ -60,10 +60,6 @@ export default function HomeScreen() {
   }
 
   const onSwipe = async (direction) => {
-    if (isSwiping.current) {
-      return
-    }
-    isSwiping.current = true
     console.log('You swiped: ' + direction)
 
     try {
@@ -95,6 +91,8 @@ export default function HomeScreen() {
     } catch (error) {
       console.error(error)
       alert(error.message)
+    } finally {
+      isSwiping.current = false
     }
   }
 
@@ -129,55 +127,73 @@ export default function HomeScreen() {
           </p>
         </div>
 
-        {!loading && (
-          <div className={styles.cardWrapper}>
-            {openAIError ? (
-              // Error card
-              <TinderCard
-                key='error'
-                ref={errorCardRef}
-                onSwipe={onSwipeErrorCard}
-                onCardLeftScreen={() => {}}
-                preventSwipe={[]}
-              >
-                <Card className={`text-center ${styles.errorCardStyle}`}>
-                  <Card.Body>
-                    <Card.Title className={styles.unselectable}>
-                      Service is currently down
-                    </Card.Title>
-                    <Card.Text className={styles.unselectable}>
-                      Please try again later.
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </TinderCard>
-            ) : (
-              idea && (
-                // Idea card
+        <div className={styles.cardAndButtonsContainer}>
+          {!loading && (
+            <div className={styles.cardWrapper}>
+              {openAIError ? (
+                // Error card
                 <TinderCard
-                  key={cardKey}
-                  onSwipe={onSwipe}
-                  onCardLeftScreen={onCardLeftScreen}
-                  preventSwipe={['up', 'down']}
+                  key='error'
+                  ref={errorCardRef}
+                  onSwipe={onSwipeErrorCard}
+                  onCardLeftScreen={() => {}}
+                  preventSwipe={[]}
                 >
-                  <Card
-                    id='new-idea'
-                    className={`text-center ${styles.cardStyle}`}
-                  >
+                  <Card className={`text-center ${styles.errorCardStyle}`}>
                     <Card.Body>
+                      <Card.Title className={styles.unselectable}>
+                        Service is currently down
+                      </Card.Title>
                       <Card.Text className={styles.unselectable}>
-                        {idea.text}
-                      </Card.Text>
-                      <Card.Text className={styles.likes}>
-                        Likes: {idea.likes}
+                        Please try again later.
                       </Card.Text>
                     </Card.Body>
                   </Card>
                 </TinderCard>
-              )
-            )}
-          </div>
-        )}
+              ) : (
+                idea && (
+                  // Idea card
+                  <TinderCard
+                    key={cardKey}
+                    onSwipe={onSwipe}
+                    onCardLeftScreen={onCardLeftScreen}
+                    preventSwipe={['up', 'down']}
+                  >
+                    <Card
+                      id='new-idea'
+                      className={`text-center ${styles.cardStyle}`}
+                    >
+                      <Card.Body>
+                        <Card.Text className={styles.unselectable}>
+                          {idea.text}
+                        </Card.Text>
+                        <Card.Text className={styles.likes}>
+                          Likes: {idea.likes}
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </TinderCard>
+                )
+              )}
+            </div>
+          )}
+          {!loading && idea && (
+            <div className={styles.buttonsContainer}>
+              <button
+                className={styles.dislikeButton}
+                onClick={() => onSwipe('left')}
+              >
+                Dislike
+              </button>
+              <button
+                className={styles.likeButton}
+                onClick={() => onSwipe('right')}
+              >
+                Like
+              </button>
+            </div>
+          )}
+        </div>
       </main>
     </div>
   )
