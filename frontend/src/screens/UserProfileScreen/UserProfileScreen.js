@@ -14,9 +14,7 @@ const UserProfileScreen = () => {
 
   const getUserInfo = async () => {
     try {
-      console.log('ZZZZZZZZZ', dbUser)
       const access_token = await getAccessTokenSilently()
-      console.log(dbUser)
 
       const apiCall = await userApi.getUserByID(dbUser._id, {
         headers: {
