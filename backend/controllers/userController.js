@@ -8,7 +8,7 @@ export const createUser = async (req, res) => {
     console.log('DEBUG: Inside CreateUser()')
 
     const { email, name } = req.body
-    const auth0Id = req.auth.payload.sub
+    const auth0Id = req.user.sub
 
     let user = await User.findOne({ auth0Id })
 
@@ -74,9 +74,10 @@ export const getUserByID = async (req, res) => {
 
 export const swipe = async (req, res) => {
   try {
+    console.log('DEBUG: InsideSwipe()', req.body)
     // Get the required information from the request body
-    const { ideaId, action, ideaText } = req.body
-    const userId = req.auth.payload.sub
+    const { ideaId, action } = req.body
+    const userId = req.user.sub
 
     // Find the user by their auth0Id
     const user = await User.findOne({ auth0Id: userId })

@@ -25,6 +25,7 @@ export default function HomeScreen() {
     setLoading(true)
     try {
       const token = await getAccessTokenSilently()
+      console.log(token)
       const response = await axios.get('/ideas/random', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -73,7 +74,6 @@ export default function HomeScreen() {
         {
           ideaId: idea.id,
           action: direction,
-          ideaText: idea.text,
         },
         {
           headers: {

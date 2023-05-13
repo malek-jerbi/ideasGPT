@@ -5,56 +5,118 @@ import connectDB from './config/db.js'
 import cors from 'cors'
 import ideaRoutes from './routes/ideaRoutes.js'
 import userRouter from './routes/userRoutes.js'
+import bodyParser from 'body-parser'
+import path from 'path'
 import pkg from 'express-oauth2-jwt-bearer'
 const { auth } = pkg
 import testAuthMiddleware from './middleware/testAuthMiddleware.js'
-
-import bodyParser from 'body-parser'
-
+import debug from 'debug'
+import jwt from 'jsonwebtoken'
+import jwksClient from 'jwks-rsa'
 dotenv.config()
+debug.enable('express-oauth2-jwt-bearer:*') // Add this line
 
 connectDB()
 
 const app = express()
 
 app.use(express.json())
-// ---MIDDLE WARE---
-// In case we send images they can be large so the size is being limited
-// support parsing of application/json type post data
 app.use(bodyParser.json({ limit: '30mb', extended: true }))
 
 const PORT = process.env.PORT || 5000
-//app.use(cors())
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
 
-const authMiddleware = auth({
-  audience: 'https://dev-glrfz0b04ozteyjy.us.auth0.com/api/v2/',
-  issuerBaseURL: 'https://dev-glrfz0b04ozteyjy.us.auth0.com/',
-  tokenSigningAlg: 'RS256',
+// Add this middleware to log each incoming request
+app.use((req, res, next) => {
+  console.log('Incoming request:', req.method, req.originalUrl)
+  next()
 })
 
-const jwtCheck =
-  process.env.NODE_ENV === 'test' ? testAuthMiddleware : authMiddleware
+// Middleware to validate JWT
+const client = jwksClient({
+  jwksUri: 'https://dev-xl04qgs7ocqc3337.us.auth0.com/.well-known/jwks.json',
+})
 
-// enforce on all endpoints
-app.use(jwtCheck)
+function getKey(header, callback) {
+  client.getSigningKey(header.kid, function (err, key) {
+    if (err) {
+      callback(err)
+      return
+    }
+    const signingKey = key.publicKey || key.rsaPublicKey
 
-app.get('/authorized', function (req, res) {
-  res.send('Secured Resource')
+    callback(null, signingKey)
+  })
+}
+
+const jwtMiddleware = (req, res, next) => {
+  const authHeader = req.headers.authorization
+
+  if (!authHeader) {
+    res.status(401).send('Unauthorized: No token provided')
+    return
+  }
+
+  const token = authHeader.split(' ')[1]
+
+  jwt.verify(
+    token,
+    getKey,
+    {
+      issuer: 'https://dev-xl04qgs7ocqc3337.us.auth0.com/',
+      audience: 'https://dev-xl04qgs7ocqc3337.us.auth0.com/api/v2/',
+    },
+    (err, decoded) => {
+      if (err) {
+        console.log('JWT Error:', err) // Log the error for debugging
+        res.status(401).send('Unauthorized: Invalid token')
+        return
+      }
+
+      req.user = decoded
+      next()
+    }
+  )
+}
+
+//app.use(jwtCheck)
+app.use(jwtMiddleware)
+
+// Add this middleware to log the decoded JWT payload
+app.use((req, res, next) => {
+  console.log('Decoded JWT payload:', req.user)
+  next()
 })
 
 app.use('/ideas', ideaRoutes)
 app.use('/users', userRouter)
 
-// prevents backend from crashing when error occurs
+const __dirname = path.resolve()
+
+// Serve static files from the 'frontend/build' folder
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'frontend', 'build')))
+
+  // Use express.static to serve the static files
+  app.use(
+    '/static',
+    express.static(path.join(__dirname, 'frontend', 'build', 'static'))
+  )
+
+  // Handle any requests that don't match the ones above
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  })
+}
+
 app.use((req, res, next) => {
   const error = new Error('Not found')
   error.status = 404
   next(error)
 })
 
-// prevents backend from crashing when error occurs
 app.use((error, req, res, next) => {
+  console.log('Error:', error) // Add this line
   const status = error.status || 500
   const message = error.message || 'Internal server error'
   res.status(status).send(message)
@@ -62,14 +124,12 @@ app.use((error, req, res, next) => {
 
 let server
 if (process.env.NODE_ENV !== 'test') {
-  const PORT = process.env.PORT || 5000
-  server = app.listen(
-    PORT,
+  server = app.listen(PORT, () => {
     console.log(
       `server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow
         .bold
     )
-  )
+  })
 } else {
   server = app
 }

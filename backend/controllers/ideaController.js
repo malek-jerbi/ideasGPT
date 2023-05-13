@@ -1,6 +1,6 @@
 import Idea from '../models/ideaModel.js'
-import User from '../models/userModel.js'
 import { generateIdea as generateIdeaFromOpenAI } from './openaiController.js'
+import User from '../models/userModel.js'
 
 export const getIdeas = async (req, res) => {
   try {
@@ -14,7 +14,7 @@ export const getIdeas = async (req, res) => {
 export const getRandomIdea = async (req, res) => {
   try {
     // Get the Auth0 ID from the request object
-    const auth0Id = req.auth.payload.sub
+    const auth0Id = req.user.sub
 
     // Retrieve the user's swiped ideas
     const user = await User.findOne({ auth0Id: auth0Id })
@@ -63,20 +63,5 @@ export const getRandomIdea = async (req, res) => {
   } catch (error) {
     console.error('Error fetching idea:', error)
     res.status(500).json({ message: 'Error fetching idea' })
-  }
-}
-
-export const deleteIdea = async (req, res) => {
-  try {
-    const idea = await Idea.findByIdAndDelete(req.params.id)
-
-    if (!idea) {
-      res.status(404).json({ message: 'Idea not found' })
-      return
-    }
-
-    res.status(200).json({ message: 'Idea deleted successfully' })
-  } catch (error) {
-    res.status(500).json({ message: 'Error deleting idea', error })
   }
 }
