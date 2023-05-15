@@ -197,4 +197,14 @@ footer {
   }
 }
 
-/* #202123 */
+.sign-in-button {
+  color: white;
+  background-color: #ff8c00;
+  border: none;
+}
+
+.sign-in-button {
+  color: #ff8c00;
+  background-color: #202123;
+  border: 1px solid #ff8c00;
+}

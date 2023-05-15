@@ -33,6 +33,7 @@ function LoginButton() {
   return (
     !isAuthenticated && (
       <button
+        class='sign-in-button'
         onClick={() => {
           loginWithPopup()
         }}

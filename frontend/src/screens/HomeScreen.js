@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap'
 import styles from './HomeScreen.module.css'
 import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
+import LoginButton from '../components/LoginButton'
 
 export default function HomeScreen() {
   const [idea, setIdea] = useState(null)
@@ -122,11 +123,13 @@ export default function HomeScreen() {
             shown.
           </p>
           <p className={styles.description}>
-            If you sign up, you can revisit the ideas you liked before on your
-            profile.
+            You can revisit the ideas you liked before on your profile.
           </p>
+          {!isAuthenticated && (
+            <p className={styles.description}>Please sign up first.</p>
+          )}
         </div>
-
+        {!isAuthenticated && <LoginButton />}
         <div className={styles.cardAndButtonsContainer}>
           {!loading && (
             <div className={styles.cardWrapper}>
